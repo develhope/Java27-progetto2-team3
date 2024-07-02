@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Cliente extends Utente{
+public class Cliente extends Utente {
     private Carrello carrelloCliente;
     private ArrayList StoricoAcquisti;
 

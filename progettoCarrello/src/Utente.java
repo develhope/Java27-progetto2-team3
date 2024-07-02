@@ -35,5 +35,6 @@ public abstract class Utente {
     public int getTelefono() {
         return Telefono;
     }
+
     public abstract String getTipo();
 }

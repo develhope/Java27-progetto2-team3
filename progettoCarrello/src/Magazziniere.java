@@ -1,10 +1,11 @@
-public class Magazziniere extends Utente{
+public class Magazziniere extends Utente {
     Magazzino magazzino = new Magazzino();
 
 
     public Magazziniere(String nome, String email, int telefono, String password, Magazzino magazzino) {
         super(nome, email, telefono, password);
         super.setTipoUtente(tipoUtente.MAGAZZINIERE);
+        this.magazzino = magazzino;
     }
 
     @Override
@@ -15,8 +16,9 @@ public class Magazziniere extends Utente{
 
     // CalcoloMedioPerSingoloDispositivo - domanda Nico
 
-    public void RimoviIDMagazzino(String id){
+    public void RimoviIDMagazzino(String id) {
         magazzino.rimuoveProdotto(id);
+        System.out.println("Prodotto rimosso!");
     }
 
     public void RicercaPrezzoAcquisto(Double v) {

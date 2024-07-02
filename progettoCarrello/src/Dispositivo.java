@@ -24,11 +24,11 @@ public class Dispositivo extends Prodotto {
 
     @Override
     public String stampaProdottoCliente() {
-        return "Produttore: " + produttore + " | Modello: " + modello + " | Descrizione: " + descrizione + " | Prezzo: " + prezzoVendita + " | Tipo: " + tipiProdotto + " | Dimensione display: " + dimensioneDisplay + "Dimensione di memoria: " + dimensioneSpazio;
+        return "Produttore: " + produttore + " | Modello: " + modello + " | Descrizione: " + descrizione + " | Prezzo: " + prezzoVendita + " | Tipo: " + tipiProdotto + " | Dimensione display: " + dimensioneDisplay + " | Dimensione di memoria: " + dimensioneSpazio;
     }
 
     @Override
     public String stampaProdottoMagazzinieri() {
-        return "ID Dispositivo: " + idDispositivo + "Produttore: " + produttore + " | Modello: " + modello + " | Descrizione: " + descrizione + " | Prezzo vendita: " + prezzoVendita + " | Prezzo acquisto" + prezzoAcquisto + " | Tipo: " + tipiProdotto + " | Dimensione display: " + dimensioneDisplay + "Dimensione di memoria: " + dimensioneSpazio;
+        return "ID Dispositivo: " + idDispositivo + " | Produttore: " + produttore + " | Modello: " + modello + " | Descrizione: " + descrizione + " | Prezzo vendita: " + prezzoVendita + " | Prezzo acquisto: " + prezzoAcquisto + " | Tipo: " + tipiProdotto + " | Dimensione display: " + dimensioneDisplay + " | Dimensione di memoria: " + dimensioneSpazio;
     }
 }
