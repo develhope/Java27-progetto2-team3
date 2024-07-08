@@ -15,7 +15,7 @@ public class Magazzino {
         return listaProdotti;
     }
 
-    //listaDispositivo, e quando chamada, consegue ser visualizada pelo usuario dependendo do tipo dele
+    //listaDispositivo, e quando richiamato può essere visualizzato dall'utente a seconda della sua tipologia
     public ArrayList<Prodotto> visualizzaDispositivi() throws RicercaNullaException {
         ArrayList<Prodotto> prodotti = null;
         if (listaProdotti.isEmpty()) {
