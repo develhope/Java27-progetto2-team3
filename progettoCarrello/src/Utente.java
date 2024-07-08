@@ -1,27 +1,48 @@
-public abstract class Utente {
+public abstract class Utente{
+
     protected String nome;
-    protected String Email;
-    protected int Telefono;
-    protected String Password;
+    protected String email;
+    protected int telefono;
+    protected String password;
     protected TipoUtente tipoUtente;
 
     public Utente(String nome, String email, int telefono, String password) {
         this.nome = nome;
-        this.Email = email;
-        this.Telefono = telefono;
-        this.Password = password;
-    }
-
-    public String getPassword() {
-        return Password;
+        this.email = email;
+        this.telefono = telefono;
+        this.password = password;
     }
 
     public String getNome() {
         return nome;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public String getEmail() {
-        return Email;
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public TipoUtente getTipoUtente() {
@@ -30,10 +51,6 @@ public abstract class Utente {
 
     public void setTipoUtente(TipoUtente tipoUtente) {
         this.tipoUtente = tipoUtente;
-    }
-
-    public int getTelefono() {
-        return Telefono;
     }
 
     public abstract String getTipo();

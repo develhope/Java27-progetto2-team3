@@ -1,10 +1,10 @@
 public class Magazziniere extends Utente {
-    Magazzino magazzino = new Magazzino();
 
+    Magazzino magazzino = new Magazzino();
 
     public Magazziniere(String nome, String email, int telefono, String password, Magazzino magazzino) {
         super(nome, email, telefono, password);
-        super.setTipoUtente(tipoUtente.MAGAZZINIERE);
+        super.setTipoUtente(TipoUtente.MAGAZZINIERE);
         this.magazzino = magazzino;
     }
 
@@ -13,12 +13,9 @@ public class Magazziniere extends Utente {
         return "Magazziniere";
     }
 
-
-    // CalcoloMedioPerSingoloDispositivo - domanda Nico
-
-    public void RimoviIDMagazzino(String id) {
+    public String RimoviDalMagazzino(Dispositivo id) {
         magazzino.rimuoveProdotto(id);
-        System.out.println("Prodotto rimosso!");
+        return  "Il seguente prodotto: "+ id.modello + " è stato rimosso con successo";
     }
 
     public void RicercaPrezzoAcquisto(Double v) {

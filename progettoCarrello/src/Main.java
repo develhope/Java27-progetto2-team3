@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
+
         ArrayList<Dispositivo> dispositivo = new ArrayList<Dispositivo>();
         dispositivo.add(new Dispositivo("A","a","a",1200,1500, TipoProdotto.SMARTPHONE,1,1,"A1"));
         dispositivo.add(new Dispositivo("B","b","b",1100,1400, TipoProdotto.TABLET,1,1,"A5"));
@@ -13,11 +14,10 @@ public class Main {
         Magazziniere magazziniere = new Magazziniere("Duda","duda@duda",2424211,"1234",magazzino);
 
 
-
         magazzino.VisualizzaDispositivi(cliente);
         magazzino.VisualizzaDispositivi(magazziniere);
 
-        magazziniere.RimoviIDMagazzino("A1");
+        magazziniere.RimoviDalMagazzino("A1");
         magazzino.VisualizzaDispositivi(cliente);
 
         System.out.println("Prodotti di tipo Notebook: ");
@@ -26,6 +26,6 @@ public class Main {
         System.out.println("Prodotti di prodottori B: ");
         magazzino.RicercaPerProduttori("B");
 
-
     }
 }
+

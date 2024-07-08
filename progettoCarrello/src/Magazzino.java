@@ -114,10 +114,10 @@ public class Magazzino {
         return null;
     }
 
-    public void rimuoveProdotto(String id) {
+    public void rimuoveProdotto(Dispositivo id) {
         if (prodotto.size() != 0) {
             for (int i = 0; i < prodotto.size(); i++) {
-                if (id == prodotto.get(i).getIdDispositivo()) {
+                if (id.getIdDispositivo().equals(prodotto.get(i).getIdDispositivo())) {
                     prodotto.remove(i);
                 }
             }

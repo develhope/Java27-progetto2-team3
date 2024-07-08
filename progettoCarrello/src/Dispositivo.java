@@ -31,4 +31,6 @@ public class Dispositivo extends Prodotto {
     public String stampaProdottoMagazzinieri() {
         return "ID Dispositivo: " + idDispositivo + " | Produttore: " + produttore + " | Modello: " + modello + " | Descrizione: " + descrizione + " | Prezzo vendita: " + prezzoVendita + " | Prezzo acquisto: " + prezzoAcquisto + " | Tipo: " + tipiProdotto + " | Dimensione display: " + dimensioneDisplay + " | Dimensione di memoria: " + dimensioneSpazio;
     }
+
+
 }

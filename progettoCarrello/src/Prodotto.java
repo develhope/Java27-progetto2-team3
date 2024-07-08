@@ -1,4 +1,5 @@
 public abstract class Prodotto {
+
     protected String  produttore;
     protected String modello;
     protected String descrizione;
@@ -14,7 +15,6 @@ public abstract class Prodotto {
         this.prezzoVendita = prezzoVendita;
         this.tipiProdotto = tipiProdotto;
     }
-
 
     public abstract String stampaProdottoCliente();
 
