@@ -1,5 +1,6 @@
 import javax.tools.Diagnostic;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Magazzino {
     private ArrayList<Prodotto> listaProdotti;
@@ -9,6 +10,7 @@ public class Magazzino {
     }
 
     public Magazzino() {
+        listaProdotti = new ArrayList<Prodotto>();
     }
 
     public ArrayList<Prodotto> getProdotto() {
@@ -17,14 +19,10 @@ public class Magazzino {
 
     //listaDispositivo, e quando richiamato può essere visualizzato dall'utente a seconda della sua tipologia
     public ArrayList<Prodotto> visualizzaDispositivi() throws RicercaNullaException {
-        ArrayList<Prodotto> prodotti = null;
         if (listaProdotti.isEmpty()) {
             throw new RicercaNullaException();
         }
-        for (Prodotto i : listaProdotti) {
-            prodotti.add(i);
-        }
-        return prodotti;
+        return listaProdotti;
     }
 
     public ArrayList<Prodotto> ricercaTipoDispositivo(TipoProdotto p) throws RicercaNullaException {
@@ -133,7 +131,8 @@ public class Magazzino {
 
         for (Prodotto i : listaProdotti) {
             if (id == i.getIdDispositivo()) {
-                return listaProdotti.remove(i);
+                Prodotto rimosso = listaProdotti.remove(i);
+                return rimosso;
             }
         }
         throw new RicercaNullaException("Non esiste prodotto con questo ID!");
