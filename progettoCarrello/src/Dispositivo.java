@@ -1,3 +1,9 @@
+enum TipoProdotto {
+    TABLET,
+    SMARTPHONE,
+    NOTEBOOK
+}
+
 public class Dispositivo extends Prodotto {
         private double dimensioneDisplay;
         private int dimensioneSpazio;
