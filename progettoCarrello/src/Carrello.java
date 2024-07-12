@@ -12,7 +12,12 @@ public class Carrello {
         chiuso = false;
     }
 
-    public Prodotto AggiungeIDDispositivoAlCarrello(String idDispositivo) throws RicercaNullaException, CarrelloChiusoException {
+    public Carrello(int idCarrello, Magazzino magazzino) {
+        this.idCarrello = idCarrello;
+        this.magazzino = magazzino;
+    }
+
+    public Prodotto aggiungeIdDispositivoAlCarrello(String idDispositivo) throws RicercaNullaException, CarrelloChiusoException {
         if (chiuso) {
             throw new CarrelloChiusoException();
         }
@@ -24,7 +29,7 @@ public class Carrello {
         return null;
     }
 
-    public Prodotto RimoviIDDispositivoAlCarrello(String idDispositivo) throws CarrelloChiusoException {
+    public Prodotto rimuoviIdDispositivoAlCarrello(String idDispositivo) throws CarrelloChiusoException {
         if (chiuso) {
             throw new CarrelloChiusoException();
         }
@@ -34,7 +39,7 @@ public class Carrello {
     }
 
 
-    public Double TotaleCarrello() {
+    public Double totaleCarrello() {
         double sumTotal = 0;
         listaProdottiCarrello.forEach(i -> sumTotal += i.getprezzoVendita());
         return sumTotal;
