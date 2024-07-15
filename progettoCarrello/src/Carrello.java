@@ -4,27 +4,25 @@ import java.util.List;
 public class Carrello {
     int idCarrello;
     List<Prodotto> listaProdottiCarrello;
-    Magazzino magazzino;
     boolean chiuso;
 
     public Carrello() {
+
+    }
+
+    public Carrello(int idCarrello) {
+        this.idCarrello = idCarrello;
         listaProdottiCarrello = new ArrayList<Prodotto>();
         chiuso = false;
     }
 
-    public Carrello(int idCarrello, Magazzino magazzino) {
-        this.idCarrello = idCarrello;
-        this.magazzino = magazzino;
-    }
-
-    public Prodotto aggiungeIdDispositivoAlCarrello(String idDispositivo) throws RicercaNullaException, CarrelloChiusoException {
+    public Prodotto aggiungeIdDispositivoAlCarrello(Prodotto dispositivo) throws RicercaNullaException, CarrelloChiusoException {
         if (chiuso) {
             throw new CarrelloChiusoException();
         }
-        Prodotto item = magazzino.rimuovereDispositivoAlMagazzino();
-        if (item != null) {
-            listaProdottiCarrello.add(item);
-            return item;
+        if (dispositivo != null) {
+            listaProdottiCarrello.add(dispositivo);
+            return dispositivo;
         }
         return null;
     }
@@ -34,10 +32,8 @@ public class Carrello {
             throw new CarrelloChiusoException();
         }
         Prodotto item = listaProdottiCarrello.remove(idDispositivo);
-        aggiungereDispositivoAlMagazzino(item);
         return item;
     }
-
 
     public Double totaleCarrello() {
         double sumTotal = 0;
@@ -45,11 +41,8 @@ public class Carrello {
         return sumTotal;
     }
 
-
     public int finalizaCompra() {
         this.chiuso = true;
         return idCarrello;
     }
-
-
 }
