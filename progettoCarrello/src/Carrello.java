@@ -31,7 +31,17 @@ public class Carrello {
         if (chiuso) {
             throw new CarrelloChiusoException();
         }
-        Prodotto item = listaProdottiCarrello.remove(idDispositivo);
+
+        Prodotto item;
+        listaProdottiCarrello.forEach(i -> {
+                    if (i.getIdDispositivo().equals(idDispositivo)) {
+                        item = i;
+                    }
+                }
+        );
+
+        listaProdottiCarrello.remove(item);
+
         return item;
     }
 
