@@ -68,5 +68,7 @@ public abstract class Prodotto {
     public abstract String stampaProdottoCliente();
 
     public abstract String stampaProdottoMagazzinieri();
+
+    public abstract String getIdDispositivo();
 }
 
