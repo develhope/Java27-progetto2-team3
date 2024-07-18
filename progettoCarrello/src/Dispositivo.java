@@ -2,7 +2,7 @@ public class Dispositivo extends Prodotto {
     private double dimensioneDisplay;
     private int dimensioneSpazio;
     private String idDispositivo;
-    private Enum tipoDispositivo;
+    private TipoDispositivo tipoDispositivo;
 
     public Dispositivo(String produttore, String modello, String descrizione, double prezzoAcquisto, double prezzoVendita, Enum tipiProdotto, double dimensioneDisplay, int dimensioneSpazio, String idDispositivo) {
         super(produttore, modello, descrizione, prezzoAcquisto, prezzoVendita);
@@ -20,13 +20,12 @@ public class Dispositivo extends Prodotto {
         return dimensioneSpazio;
     }
 
-    @Override
+
     public String getIdDispositivo() {
         return idDispositivo;
     }
 
-    @Override
-    public Enum getTipoDispositivo() {
+    public TipoDispositivo getTipoDispositivo() {
         return tipoDispositivo;
     }
 

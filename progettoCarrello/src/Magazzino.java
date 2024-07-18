@@ -31,7 +31,7 @@ public class Magazzino {
             throw new RicercaNullaException();
         }
         for (Prodotto i : listaProdotti) {
-            if (p.equals(i.getTipoDispositivo())) {
+            if (p.equals(((Dispositivo)i).getTipoDispositivo())) {
                 arrayTipo.add(i);
             }
         }
@@ -116,7 +116,7 @@ public class Magazzino {
             throw new RicercaNullaException();
         }
         for (Prodotto i : listaProdotti) {
-            if (id == i.getIdDispositivo()) {
+            if (id == ((Dispositivo)i).getIdDispositivo()) {
                 return i;
             }
         }

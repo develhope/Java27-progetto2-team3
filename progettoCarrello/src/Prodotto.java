@@ -57,14 +57,6 @@ public abstract class Prodotto {
 
     public abstract String getIdDispositivo();
 
-    public Enum getTipoDispositivo() {
-        return null;
-    }
-
-    public String getidDIspositivo() {
-        return null;
-    }
-
     public abstract String stampaProdottoCliente();
 
     public abstract String stampaProdottoMagazzinieri();
