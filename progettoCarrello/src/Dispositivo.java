@@ -19,6 +19,7 @@ public class Dispositivo extends Prodotto {
             return dimensioneSpazio;
         }
 
+        @Override
         public String getIdDispositivo() {
             return idDispositivo;
         }
