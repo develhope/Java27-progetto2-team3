@@ -1,5 +1,5 @@
 public abstract class Prodotto {
-    protected String  produttore;
+    protected String produttore;
     protected String modello;
     protected String descrizione;
     protected double prezzoAcquisto;
@@ -55,10 +55,10 @@ public abstract class Prodotto {
         this.prezzoVendita = prezzoVendita;
     }
 
+    public abstract String getIdDispositivo();
+
     public abstract String stampaProdottoCliente();
 
     public abstract String stampaProdottoMagazzinieri();
-
-    public abstract String getIdDispositivo();
 }
 

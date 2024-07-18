@@ -16,15 +16,14 @@ public class Carrello {
         chiuso = false;
     }
 
-    public Prodotto aggiungeIdDispositivoAlCarrello(Prodotto dispositivo) throws RicercaNullaException, CarrelloChiusoException {
+    public boolean aggiungeIdDispositivoAlCarrello(Prodotto dispositivo) throws RicercaNullaException, CarrelloChiusoException {
         if (chiuso) {
             throw new CarrelloChiusoException();
         }
         if (dispositivo != null) {
-            listaProdottiCarrello.add(dispositivo);
-            return dispositivo;
+            return listaProdottiCarrello.add(dispositivo);
         }
-        return null;
+        return false;
     }
 
     public Prodotto rimuoviIdDispositivoAlCarrello(String idDispositivo) throws CarrelloChiusoException {
