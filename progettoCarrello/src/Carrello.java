@@ -32,13 +32,12 @@ public class Carrello {
             throw new CarrelloChiusoException();
         }
 
-        Prodotto item;
-        listaProdottiCarrello.forEach(i -> {
-                    if (i.getIdDispositivo().equals(idDispositivo)) {
-                        item = i;
-                    }
-                }
-        );
+        Prodotto item = null;
+        for (Prodotto i : listaProdottiCarrello){
+            if(i.getIdDispositivo().equals(idDispositivo)){
+                item = i;
+            }
+        }
 
         listaProdottiCarrello.remove(item);
 
@@ -47,7 +46,9 @@ public class Carrello {
 
     public Double totaleCarrello() {
         double sumTotal = 0;
-        listaProdottiCarrello.forEach(i -> sumTotal += i.getprezzoVendita());
+        for (Prodotto i : listaProdottiCarrello){
+            sumTotal += i.getPrezzoVendita();
+        }
         return sumTotal;
     }
 
