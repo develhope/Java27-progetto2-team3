@@ -124,15 +124,14 @@ public class Magazzino {
 
     }
 
-    public Prodotto rimuoveProdotto(String id) throws RicercaNullaException {
+    public boolean rimuoveProdotto(String idDispositivo) throws RicercaNullaException {
         if (listaProdotti.isEmpty()) {
             throw new RicercaNullaException();
         }
 
         for (Prodotto i : listaProdotti) {
-            if (id == i.getIdDispositivo()) {
-                listaProdotti.remove(i);
-                return i;
+            if (idDispositivo == ((Dispositivo)i).getIdDispositivo()) {
+                return listaProdotti.remove(i);
             }
         }
         throw new RicercaNullaException("Non esiste prodotto con questo ID!");

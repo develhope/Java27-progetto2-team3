@@ -20,7 +20,6 @@ public class Dispositivo extends Prodotto {
         return dimensioneSpazio;
     }
 
-
     public String getIdDispositivo() {
         return idDispositivo;
     }

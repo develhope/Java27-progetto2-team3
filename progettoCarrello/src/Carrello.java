@@ -33,7 +33,7 @@ public class Carrello {
 
         Prodotto item = null;
         for (Prodotto i : listaProdottiCarrello){
-            if(i.getIdDispositivo().equals(idDispositivo)){
+            if(((Dispositivo) i).getIdDispositivo().equals(idDispositivo)){
                 item = i;
             }
         }

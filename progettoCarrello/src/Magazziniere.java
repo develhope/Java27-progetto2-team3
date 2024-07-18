@@ -20,9 +20,8 @@ public class Magazziniere extends Utente {
         return "Magazziniere";
     }
 
-    public String RimoviDalMagazzino(Prodotto id) {
-        magazzino.rimuoveProdotto(id.getIdDispositivo);
-        return  "Il seguente prodotto: "+ id.modello + " è stato rimosso con successo";
+    public boolean rimuoviDalMagazzino(Prodotto id) throws RicercaNullaException {
+       return magazzino.rimuoveProdotto(((Dispositivo)id).getIdDispositivo());
     }
 
     public void RicercaPrezzoAcquisto(Double v) {
