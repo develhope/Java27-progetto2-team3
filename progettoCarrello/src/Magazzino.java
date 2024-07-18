@@ -25,13 +25,13 @@ public class Magazzino {
         return listaProdotti;
     }
 
-    public ArrayList<Prodotto> ricercaTipoDispositivo(TipoProdotto p) throws RicercaNullaException {
-        ArrayList<Prodotto> arrayTipo = new ArrayList<Dispositivo>();
+    public List<Prodotto> ricercaTipoDispositivo(TipoDispositivo p) throws RicercaNullaException {
+        List<Prodotto> arrayTipo = new ArrayList<>();
         if (listaProdotti.isEmpty()) {
             throw new RicercaNullaException();
         }
         for (Prodotto i : listaProdotti) {
-            if (p.equals(i.getTipiProdotto())) {
+            if (p.equals(i.getTipoDispositivo())) {
                 arrayTipo.add(i);
             }
         }
@@ -41,8 +41,8 @@ public class Magazzino {
         return arrayTipo;
     }
 
-    public ArrayList<Prodotto> ricercaPerProduttori(String p) throws RicercaNullaException {
-        ArrayList<Prodotto> arrayProduttore = new ArrayList<Dispositivo>();
+    public List<Prodotto> ricercaPerProduttori(String p) throws RicercaNullaException {
+        List<Prodotto> arrayProduttore = new ArrayList<>();
         if (listaProdotti.isEmpty()) {
             throw new RicercaNullaException();
         }
@@ -57,8 +57,8 @@ public class Magazzino {
         return arrayProduttore;
     }
 
-    public ArrayList<Prodotto> ricercaPerModelo(String m) throws RicercaNullaException {
-        ArrayList<Prodotto> arrayModelo = new ArrayList<Prodotto>();
+    public List<Prodotto> ricercaPerModelo(String m) throws RicercaNullaException {
+        List<Prodotto> arrayModelo = new ArrayList<>();
 
         if (listaProdotti.isEmpty()) {
             throw new RicercaNullaException();
@@ -74,8 +74,8 @@ public class Magazzino {
         return arrayModelo;
     }
 
-    public ArrayList<Prodotto> ricercaPrezzoVendita(Double v) throws RicercaNullaException {
-        ArrayList<Prodotto> arrayPrezzoVendita = new ArrayList<Prodotto>();
+    public List<Prodotto> ricercaPrezzoVendita(Double v) throws RicercaNullaException {
+        List<Prodotto> arrayPrezzoVendita = new ArrayList<>();
 
         if (listaProdotti.isEmpty()) {
             throw new RicercaNullaException();
@@ -92,9 +92,9 @@ public class Magazzino {
     }
 
 
-    public ArrayList<Prodotto> ricercaRangePrezzi(Double v1, Double v2) throws RicercaNullaException {
+    public List<Prodotto> ricercaRangePrezzi(Double v1, Double v2) throws RicercaNullaException {
+        List<Prodotto> arrayRangePrezzo = new ArrayList<>();
 
-        ArrayList<Prodotto> arrayRangePrezzo = new ArrayList<Prodotto>();
         if (listaProdotti.isEmpty()) {
             throw new RicercaNullaException();
         }
@@ -131,8 +131,8 @@ public class Magazzino {
 
         for (Prodotto i : listaProdotti) {
             if (id == i.getIdDispositivo()) {
-                Prodotto rimosso = listaProdotti.remove(i);
-                return rimosso;
+                listaProdotti.remove(i);
+                return i;
             }
         }
         throw new RicercaNullaException("Non esiste prodotto con questo ID!");
