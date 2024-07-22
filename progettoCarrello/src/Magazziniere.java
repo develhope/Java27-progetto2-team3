@@ -2,9 +2,16 @@ public class Magazziniere extends Utente {
 
     Magazzino magazzino = new Magazzino();
 
-    public Magazziniere(String nome, String email, int telefono, String password, Magazzino magazzino) {
+    public Magazziniere(String nome, String email, int telefono, String password) {
         super(nome, email, telefono, password);
         super.setTipoUtente(TipoUtente.MAGAZZINIERE);
+    }
+
+    public Magazzino getMagazzino() {
+        return magazzino;
+    }
+
+    public void setMagazzino(Magazzino magazzino) {
         this.magazzino = magazzino;
     }
 
@@ -13,9 +20,8 @@ public class Magazziniere extends Utente {
         return "Magazziniere";
     }
 
-    public String RimoviDalMagazzino(Dispositivo id) {
-        magazzino.rimuoveProdotto(id);
-        return  "Il seguente prodotto: "+ id.modello + " è stato rimosso con successo";
+    public boolean rimuoviDalMagazzino(Prodotto id) throws RicercaNullaException {
+       return magazzino.rimuoveProdotto(((Dispositivo)id).getIdDispositivo());
     }
 
     public void RicercaPrezzoAcquisto(Double v) {
