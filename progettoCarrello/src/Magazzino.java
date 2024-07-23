@@ -25,6 +25,10 @@ public class Magazzino {
         return listaProdotti;
     }
 
+    public boolean aggAlMagazzino(Prodotto prodotto){
+        return listaProdotti.add(prodotto);
+    }
+
     public List<Prodotto> ricercaTipoDispositivo(TipoDispositivo p) throws RicercaNullaException {
         List<Prodotto> arrayTipo = new ArrayList<>();
         if (listaProdotti.isEmpty()) {
@@ -116,7 +120,7 @@ public class Magazzino {
             throw new RicercaNullaException();
         }
         for (Prodotto i : listaProdotti) {
-            if (id == ((Dispositivo)i).getIdDispositivo()) {
+            if (id.equals(((Dispositivo)i).getIdDispositivo())){
                 return i;
             }
         }
@@ -130,7 +134,7 @@ public class Magazzino {
         }
 
         for (Prodotto i : listaProdotti) {
-            if (idDispositivo == ((Dispositivo)i).getIdDispositivo()) {
+            if (idDispositivo.equals(((Dispositivo)i).getIdDispositivo())) {
                 return listaProdotti.remove(i);
             }
         }

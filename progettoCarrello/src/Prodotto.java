@@ -5,6 +5,12 @@ public abstract class Prodotto {
     protected double prezzoAcquisto;
     protected double prezzoVendita;
 
+    public String toStringDetailsClient() {
+        return "Prodotto{" +
+                "produttore='" + produttore + '\'' +
+                ", modello='" + modello +
+                '}';
+    }
 
     public Prodotto(String produttore, String modello, String descrizione, double prezzoAcquisto, double prezzoVendita) {
         this.produttore = produttore;
