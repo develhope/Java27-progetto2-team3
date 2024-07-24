@@ -1,7 +1,5 @@
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws RicercaNullaException, CarrelloChiusoException {
@@ -16,6 +14,7 @@ public class Main {
 
         List<Utente> utenteList = new ArrayList<>();
         utenteList.add(new Cliente("Duda", "a", 1, "a"));
+        utenteList.add(new Magazziniere("Sandro", "b", 1, "b"));
 
         boolean esci = false;
         System.out.println("|--------------------------------- BENVENUTI AL MERCATO TECH ----------------------------------|");
@@ -80,8 +79,18 @@ public class Main {
                     }
                 } else {
                     sceltaMenu = menuMagazzinieri(scanner);
+                    switch (sceltaMenu) {
+                        case "1":
+                            visualizzaMagazzino(scanner,magazzino);
+                            break;
+                        case "2":
+
+                            break;
+                        default:
+                            System.out.println("Selezione invalida!");
+                    }
                 }
-                if (sceltaMenu == "0") {
+                if (sceltaMenu.equals("0")) {
                     esci = true;
                     break;
                 }
@@ -214,4 +223,91 @@ public class Main {
         System.out.println("|---------------------------- 3- Modifica dati personale | 0- Esci ----------------------------|");
         return scanner.nextLine();
     }
+
+    //Visualizza prodotto magazziniere
+    public static String visualizzaMagazzino(Scanner scanner, Magazzino magazzino) throws RicercaNullaException{
+        List<Prodotto> prodotto = new ArrayList<>();
+        prodotto.addAll(magazzino.visualizzaDispositivi());
+
+        System.out.println("=============================================================================================");
+        System.out.println("===================================== Prodotti magazzino: ======================================");
+        for(Prodotto i : prodotto){
+            System.out.println(i.toStringDetailsMagazziniere());
+        }
+        System.out.println("=============================================================================================" + "\n");
+
+        //ricerche varie
+        System.out.println("1 - ricerca prodotto | 2 - aggiungi prodotto | 3 - rimuovi prodotto");
+        String sceltaSubMenu = scanner.nextLine();
+
+        switch (sceltaSubMenu) {
+            case "1":
+
+                System.out.println("1 - ricarca per tipo | 2 - ricerca per produttore | 3 - ricerca per modello");
+                System.out.println("4 - ricerca per prezzo vendita | 5 - ricerca per range prezzo | 6 - ricerca per prodotto specifico");
+                String sceltaRicerca = scanner.nextLine();
+                String tipo = scanner.nextLine().toUpperCase();
+                TipoDispositivo p;
+                if(tipo.equals("NOTEBOOK")) {
+                    p = TipoDispositivo.NOTEBOOK;
+                } else if (tipo.equals("SMARTPHONE")){
+                    p = TipoDispositivo.SMARTPHONE;
+                } else if (tipo.equals("TABLET")){
+                    p = TipoDispositivo.TABLET;
+                } else {
+                    throw new RicercaNullaException();
+                }
+                switch (sceltaRicerca){
+                    case "1" -> {magazzino.ricercaTipoDispositivo(p);}
+                    case "2" -> {magazzino.ricercaPerProduttori(scanner.nextLine());}
+                    case "3" -> {magazzino.ricercaPerModelo(scanner.nextLine());}
+                    case "4" -> {magazzino.ricercaPrezzoVendita(scanner.nextDouble());}
+                    case "5" -> {magazzino.ricercaRangePrezzi(scanner.nextDouble(), scanner.nextDouble());}
+                    case "6" -> {magazzino.ricercaProdotto(scanner.nextLine());}
+                    default ->  {System.out.println("");}
+                }
+                break;
+            case "2":
+                System.out.println("Inserisci nome produttore, modello, descrizione, prezzo acquisto, prezzo vendita, dimensione display, dimensione spazio, id del dispositivo, tipo dispositivo");
+                aggiungiDispositivo(magazzino);
+                break;
+            case "3":
+                System.out.println("Inserire id del dispositivo da eliminare");
+                magazzino.rimuoveProdotto(scanner.nextLine());
+                break;
+            default:
+                return "Opzione invalida, torna al menu principale!";
+        }
+        return null;
+    }
+
+    public static void aggiungiDispositivo(Magazzino magazzino) throws RicercaNullaException{
+
+        Scanner scanner = new Scanner(System.in);
+
+        String produttore = scanner.nextLine();
+        String modello = scanner.nextLine();
+        String descrizione = scanner.nextLine();
+        double prezzoAcquisto = scanner.nextDouble();
+        double prezzoVendita = scanner.nextDouble();
+        double dimensioneDisplay = scanner.nextDouble();
+        int dimensioneSpazio = scanner.nextInt();
+        scanner.nextLine();
+        String idDispositivo = scanner.nextLine();
+        String tipo = scanner.nextLine().toUpperCase();
+        TipoDispositivo tipoDispositivo;
+        if(tipo.equals("NOTEBOOK")) {
+            tipoDispositivo = TipoDispositivo.NOTEBOOK;
+        } else if (tipo.equals("SMARTPHONE")){
+            tipoDispositivo = TipoDispositivo.SMARTPHONE;
+        } else if (tipo.equals("TABLET")){
+            tipoDispositivo = TipoDispositivo.TABLET;
+        } else {
+            throw new RicercaNullaException();
+        }
+
+        System.out.println(magazzino.aggAlMagazzino(new Dispositivo(produttore,modello,descrizione,prezzoAcquisto,prezzoVendita,tipoDispositivo,dimensioneDisplay,dimensioneSpazio,idDispositivo)));
+    }
+
+
 }
