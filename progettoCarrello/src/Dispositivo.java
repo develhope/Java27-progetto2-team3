@@ -4,7 +4,18 @@ public class Dispositivo extends Prodotto {
     private String idDispositivo;
     private TipoDispositivo tipoDispositivo;
 
-    public Dispositivo(String produttore, String modello, String descrizione, double prezzoAcquisto, double prezzoVendita, Enum tipiProdotto, double dimensioneDisplay, int dimensioneSpazio, String idDispositivo) {
+    @Override
+    public String toStringDetailsClient() {
+        return "Dispositivo{" +
+                ", idDispositivo='" + idDispositivo + '\'' +
+                ", tipoDispositivo=" + tipoDispositivo +
+                ", produttore='" + produttore + '\'' +
+                ", modello='" + modello + '\'' +
+                ", prezzoAcquisto=" + prezzoAcquisto +
+                '}';
+    }
+
+    public Dispositivo(String produttore, String modello, String descrizione, double prezzoAcquisto, double prezzoVendita, TipoDispositivo tipoDispositivo, double dimensioneDisplay, int dimensioneSpazio, String idDispositivo) {
         super(produttore, modello, descrizione, prezzoAcquisto, prezzoVendita);
         this.dimensioneDisplay = dimensioneDisplay;
         this.dimensioneSpazio = dimensioneSpazio;

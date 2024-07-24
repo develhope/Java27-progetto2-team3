@@ -2,18 +2,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Carrello {
-    int idCarrello;
-    List<Prodotto> listaProdottiCarrello;
-    boolean chiuso;
+    private int idCarrello;
+    private List<Prodotto> listaProdottiCarrello;
+    private boolean chiuso;
 
-    public Carrello() {
-
+    public String toStringDetailsClient() {
+        return super.toString();
     }
 
-    public Carrello(int idCarrello) {
+    public List<Prodotto> getListaProdottiCarrello() {
+        return listaProdottiCarrello;
+    }
+
+    public Carrello() {
         this.idCarrello = idCarrello;
         listaProdottiCarrello = new ArrayList<Prodotto>();
         chiuso = false;
+    }
+
+    public Carrello(int idCarrello, List<Prodotto> listaProdottiCarrello, boolean chiuso) {
+        this.idCarrello = idCarrello;
+        this.listaProdottiCarrello = new ArrayList<Prodotto>();
+        this.listaProdottiCarrello.addAll(listaProdottiCarrello);
+        this.chiuso = chiuso;
+    }
+
+    public int getIdCarrello() {
+        return idCarrello;
+    }
+
+    public boolean isChiuso() {
+        return chiuso;
     }
 
     public boolean aggiungeIdDispositivoAlCarrello(Prodotto dispositivo) throws RicercaNullaException, CarrelloChiusoException {
@@ -32,8 +51,8 @@ public class Carrello {
         }
 
         Prodotto item = null;
-        for (Prodotto i : listaProdottiCarrello){
-            if(((Dispositivo) i).getIdDispositivo().equals(idDispositivo)){
+        for (Prodotto i : listaProdottiCarrello) {
+            if (((Dispositivo) i).getIdDispositivo().equals(idDispositivo)) {
                 item = i;
             }
         }
@@ -45,14 +64,18 @@ public class Carrello {
 
     public Double totaleCarrello() {
         double sumTotal = 0;
-        for (Prodotto i : listaProdottiCarrello){
+        for (Prodotto i : listaProdottiCarrello) {
             sumTotal += i.getPrezzoVendita();
         }
         return sumTotal;
     }
 
-    public int finalizaCompra() {
-        this.chiuso = true;
-        return idCarrello;
+    public Carrello finalizaCompra() {
+        this.chiuso = false;
+        return this;
+    }
+
+    public void cleanCarrello() {
+        listaProdottiCarrello.clear();
     }
 }
