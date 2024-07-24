@@ -20,11 +20,11 @@ public class Carrello {
         chiuso = false;
     }
 
-    public Carrello(Carrello carrello, int idCarrello) {
+    public Carrello(int idCarrello, List<Prodotto> listaProdottiCarrello, boolean chiuso) {
         this.idCarrello = idCarrello;
         this.listaProdottiCarrello = new ArrayList<Prodotto>();
-        this.listaProdottiCarrello.addAll(carrello.getListaProdottiCarrello());
-        this.chiuso = carrello.isChiuso();
+        this.listaProdottiCarrello.addAll(listaProdottiCarrello);
+        this.chiuso = chiuso;
     }
 
     public int getIdCarrello() {
