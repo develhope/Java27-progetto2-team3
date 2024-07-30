@@ -20,14 +20,7 @@ public class Cliente extends Utente {
     }
 
     public boolean carrelloFinalizzatto(Carrello carrello) {
-        boolean result;
-        if (storicoAcquisti.isEmpty()) {
-            result = storicoAcquisti.add(new Carrello(1,carrello.getListaProdottiCarrello(), carrello.isChiuso()));
-        } else {
-            result = storicoAcquisti.add(new Carrello((storicoAcquisti.getLast().getIdCarrello() + 1),carrello.getListaProdottiCarrello(), carrello.isChiuso()));
-        }
-        carrello.cleanCarrello();
-        return result;
+        return storicoAcquisti.add(carrello);
     }
 
     @Override

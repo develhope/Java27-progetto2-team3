@@ -1,5 +1,5 @@
-
 import java.util.*;
+
 
 public class Main {
     public static void main(String[] args) throws RicercaNullaException, CarrelloChiusoException {
@@ -69,7 +69,7 @@ public class Main {
                     sceltaMenu = menuCliente(scanner);
                     switch (sceltaMenu) {
                         case "1":
-                            System.out.println(visualizzaCarrello(carrello, scanner, magazzino, utenteLogin));
+                            carrello = visualizzaCarrello(carrello, scanner, magazzino, utenteLogin);
                             break;
                         case "2":
                             stampaStoricoCarrello(utenteLogin);
@@ -100,13 +100,14 @@ public class Main {
     }
 
     //GESTIONE CARRELLO
-    private static String visualizzaCarrello(Carrello carrello, Scanner scanner, Magazzino magazzino, Utente utente) throws RicercaNullaException, CarrelloChiusoException {
+    private static Carrello visualizzaCarrello(Carrello carrello, Scanner scanner, Magazzino magazzino, Utente utente) throws RicercaNullaException, CarrelloChiusoException {
         List<Prodotto> carrelloList = carrello.getListaProdottiCarrello();
         System.out.println("=============================================================================================");
         System.out.println("===================================== Carrello atuale: ======================================");
         carrelloList.forEach(i -> System.out.println(((Dispositivo) i).stampaProdottoCliente()));
         System.out.println("=============================================================================================");
         System.out.println("Total Carrello:" + carrello.totaleCarrello());
+        System.out.println("Valore media per prodotti:" + carrello.spesaMedia());
         System.out.println("");
 
         System.out.println("1 - Agg Carrello | 2 - Rimuove Carrello | 3 - Finaliza Carrello");
@@ -120,50 +121,60 @@ public class Main {
             case "3":
                 return chiudeCarrello(utente, carrello);
             default:
-                return "Opzione invalida, torna al menu principale!";
+                System.out.println("Opzione invalida, torna al menu principale!");
+                return carrello;
         }
     }
 
-    private static String aggCarrello(Scanner scanner, Magazzino magazzino, Carrello carrello) {
+    private static Carrello aggCarrello(Scanner scanner, Magazzino magazzino, Carrello carrello) {
         try {
             System.out.println("ID dispositivo:");
             String idDispositivo = scanner.nextLine();
             Prodotto prodotto = magazzino.ricercaProdotto(idDispositivo);
             if (carrello.aggiungeIdDispositivoAlCarrello(prodotto)) {
                 magazzino.rimuoveProdotto(idDispositivo);
-                return "Prodotto di modello: " + prodotto.getModello() + " aggiunto al carrello!";
+                System.out.println("Prodotto di modello: " + prodotto.getModello() + " aggiunto al carrello!");
+                return carrello;
             }
         } catch (RicercaNullaException | CarrelloChiusoException e) {
             System.out.println(e.getMessage());
         }
-        return "Prodotto non aggiunto!";
+        System.out.println("Prodotto non aggiunto!");
+        return carrello;
     }
 
-    private static String rimCarrello(Scanner scanner, Carrello carrello, Magazzino magazzino) {
+    private static Carrello rimCarrello(Scanner scanner, Carrello carrello, Magazzino magazzino) {
         try {
             System.out.println("ID dispositivo:");
             String idDispositivo = scanner.nextLine();
             Prodotto prodotto = carrello.rimuoviIdDispositivoAlCarrello(idDispositivo);
             if (magazzino.aggAlMagazzino(prodotto)) {
-                return "Prodotto di modello: " + prodotto.getModello() + " rimosso dal carrello!";
+                System.out.println("Prodotto di modello: " + prodotto.getModello() + " rimosso dal carrello!");
+                return carrello;
             }
         } catch (NullPointerException | CarrelloChiusoException e) {
             System.out.println(e.getMessage());
         }
-        return "Prodotto non rimosso!";
+        System.out.println("Prodotto non rimosso!");
+        return carrello;
     }
 
-    private static String chiudeCarrello(Utente utente, Carrello carrello) {
+    private static Carrello chiudeCarrello(Utente utente, Carrello carrello) {
         if (((Cliente) utente).carrelloFinalizzatto(carrello.finalizaCompra())) {
-            return "Carrello chiuso!";
+            System.out.println("Carrello chiuso!");
+            if(((Cliente) utente).getStoricoAcquisti().isEmpty()){
+                return new Carrello();
+            }
+            return new Carrello(((Cliente) utente).getStoricoAcquisti().getLast().getIdCarrello() + 1);
         }
-        return "carrello non chiuso";
+        return carrello;
     }
 
     private static void stampaStoricoCarrello(Utente utente) {
         ArrayList<Carrello> carrelloList = ((Cliente) utente).getStoricoAcquisti();
         for (Carrello i : carrelloList) {
             System.out.println("Carrello: " + i.getIdCarrello() + " | Prezzo totale del carrello: " + i.totaleCarrello());
+            System.out.println("Detaglio del'acquisto: " + i.getDateChiusura().format(DateTimeFormatter.ofPattern("dd-MMMM-yyyy hh:mm a", Locale.ITALY)));
             List<Prodotto> carrelloListProdotto = i.getListaProdottiCarrello();
             carrelloListProdotto.forEach(j -> System.out.println(((Dispositivo) j).stampaProdottoCliente()));
             System.out.println();
@@ -200,10 +211,10 @@ public class Main {
                 } else {
                     System.out.println("Password errata!");
                 }
-            } else {
-                System.out.println("Utente inesistente! Crea un nuovo account!");
             }
         }
+
+        System.out.println("Utente inesistente! Crea un nuovo account!");
         return null;
     }
 

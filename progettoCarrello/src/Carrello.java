@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -5,9 +7,14 @@ public class Carrello {
     private int idCarrello;
     private List<Prodotto> listaProdottiCarrello;
     private boolean chiuso;
+    private OffsetDateTime dateChiusura;
 
     public String toStringDetailsClient() {
         return super.toString();
+    }
+
+    public OffsetDateTime getDateChiusura() {
+        return dateChiusura;
     }
 
     public List<Prodotto> getListaProdottiCarrello() {
@@ -20,11 +27,10 @@ public class Carrello {
         chiuso = false;
     }
 
-    public Carrello(int idCarrello, List<Prodotto> listaProdottiCarrello, boolean chiuso) {
+    public Carrello(int idCarrello) {
         this.idCarrello = idCarrello;
-        this.listaProdottiCarrello = new ArrayList<Prodotto>();
-        this.listaProdottiCarrello.addAll(listaProdottiCarrello);
-        this.chiuso = chiuso;
+        listaProdottiCarrello = new ArrayList<Prodotto>();
+        chiuso = false;
     }
 
     public int getIdCarrello() {
@@ -71,11 +77,16 @@ public class Carrello {
     }
 
     public Carrello finalizaCompra() {
-        this.chiuso = false;
+        dateChiusura = OffsetDateTime.now();
+        this.chiuso = true;
         return this;
     }
 
     public void cleanCarrello() {
         listaProdottiCarrello.clear();
+    }
+
+    public Double spesaMedia() {
+        return listaProdottiCarrello.isEmpty() ? 0.0 : totaleCarrello() / listaProdottiCarrello.size();
     }
 }
