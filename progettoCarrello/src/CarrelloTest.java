@@ -1,3 +1,4 @@
+import Exception.*;
 import org.junit.*;
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -26,7 +27,7 @@ public class CarrelloTest {
         carrello.finalizaCompra();
         assertThrows(CarrelloChiusoException.class, () -> {
             carrello.aggiungeIdDispositivoAlCarrello(dispositivo1);
-        }, "Dovrebbe lanciare CarrelloChiusoException se il carrello è chiuso");
+        }, "Dovrebbe lanciare Exception.CarrelloChiusoException se il carrello è chiuso");
     }
 
     @Test
@@ -43,7 +44,7 @@ public class CarrelloTest {
         carrello.finalizaCompra();
         assertThrows(CarrelloChiusoException.class, () -> {
             carrello.rimuoviIdDispositivoAlCarrello("D001");
-        }, "Dovrebbe lanciare CarrelloChiusoException se il carrello è chiuso");
+        }, "Dovrebbe lanciare Exception.CarrelloChiusoException se il carrello è chiuso");
     }
 
     @Test

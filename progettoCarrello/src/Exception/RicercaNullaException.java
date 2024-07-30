@@ -1,3 +1,5 @@
+package Exception;
+
 public class RicercaNullaException extends Exception{
     public RicercaNullaException(){
         super("Non esiste prodotto da visualizzare!");

@@ -1,4 +1,4 @@
-import static org.junit.jupiter.api.Assertions.*;
+import Exception.*;
 import java.util.*;
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -32,7 +32,7 @@ public class MagazzinoTest {
     public void testRicercaTipoDispositivoNonEsistente() {
         assertThrows(RicercaNullaException.class, () ->
                         magazzino.ricercaTipoDispositivo(TipoDispositivo.NOTEBOOK)
-                ,"Dovrebbe lanciare RicercaNullaException se il tipo di dispositivo non esiste");
+                ,"Dovrebbe lanciare Exception.RicercaNullaException se il tipo di dispositivo non esiste");
     }
 
     @Test
@@ -47,7 +47,7 @@ public class MagazzinoTest {
     public void testRicercaPerProduttoriNonEsistente() {
         assertThrows(RicercaNullaException.class, () -> {
             magazzino.ricercaPerProduttori("Sony");
-        }, "Dovrebbe lanciare RicercaNullaException se il produttore non esiste");
+        }, "Dovrebbe lanciare Exception.RicercaNullaException se il produttore non esiste");
     }
 
     @Test
@@ -61,7 +61,7 @@ public class MagazzinoTest {
     public void testRicercaPerModeloNonEsistente() {
         assertThrows(RicercaNullaException.class, () -> {
             magazzino.ricercaPerModelo("Surface Pro");
-        }, "Dovrebbe lanciare RicercaNullaException se il modello non esiste");
+        }, "Dovrebbe lanciare Exception.RicercaNullaException se il modello non esiste");
     }
 
     @Test
@@ -81,7 +81,7 @@ public class MagazzinoTest {
     public void testRicercaProdottoNonEsistente() {
         assertThrows(RicercaNullaException.class, () -> {
             magazzino.ricercaProdotto("D999");
-        }, "Dovrebbe lanciare RicercaNullaException se il prodotto non esiste");
+        }, "Dovrebbe lanciare Exception.RicercaNullaException se il prodotto non esiste");
     }
 
     @Test
