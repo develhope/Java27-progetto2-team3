@@ -77,4 +77,8 @@ public class Carrello {
     public void cleanCarrello() {
         listaProdottiCarrello.clear();
     }
+
+    public Double spesaMedia() {
+        return listaProdottiCarrello.isEmpty() ? 0.0 : totaleCarrello() / listaProdottiCarrello.size();
+    }
 }

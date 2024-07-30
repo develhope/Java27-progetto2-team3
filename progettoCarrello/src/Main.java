@@ -98,6 +98,7 @@ public class Main {
         carrelloList.forEach(i -> System.out.println(((Dispositivo) i).stampaProdottoCliente()));
         System.out.println("=============================================================================================");
         System.out.println("Total Carrello:" + carrello.totaleCarrello());
+        System.out.println("Valore media per prodotti:" + carrello.spesaMedia());
         System.out.println("");
 
         System.out.println("1 - Agg Carrello | 2 - Rimuove Carrello | 3 - Finaliza Carrello");
