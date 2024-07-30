@@ -2,15 +2,16 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
 
 public class Main {
     public static void main(String[] args) throws RicercaNullaException, CarrelloChiusoException {
 
         List<Prodotto> prodottoList = new ArrayList<Prodotto>();
-        prodottoList.add(new Dispositivo("a", "a", "a", 130, 180, TipoDispositivo.NOTEBOOK, 12, 12, "a"));
-        prodottoList.add(new Dispositivo("b", "b", "b", 130, 180, TipoDispositivo.NOTEBOOK, 12, 12, "b"));
-        prodottoList.add(new Dispositivo("c", "c", "c", 130, 180, TipoDispositivo.NOTEBOOK, 12, 12, "c"));
-        prodottoList.add(new Dispositivo("d", "d", "d", 130, 180, TipoDispositivo.NOTEBOOK, 12, 12, "d"));
+        prodottoList.add(new Dispositivo("a", "a", "a", 130, 180, TipoDispositivo.NOTEBOOK, 12, 12));
+        prodottoList.add(new Dispositivo("b", "b", "b", 130, 180, TipoDispositivo.NOTEBOOK, 12, 12));
+        prodottoList.add(new Dispositivo("c", "c", "c", 130, 180, TipoDispositivo.NOTEBOOK, 12, 12));
+        prodottoList.add(new Dispositivo("d", "d", "d", 130, 180, TipoDispositivo.NOTEBOOK, 12, 12));
 
         Magazzino magazzino = new Magazzino((ArrayList<Prodotto>) prodottoList);
 
@@ -93,6 +94,7 @@ public class Main {
     //GESTIONE CARRELLO
     private static Carrello visualizzaCarrello(Carrello carrello, Scanner scanner, Magazzino magazzino, Utente utente) throws RicercaNullaException, CarrelloChiusoException {
         List<Prodotto> carrelloList = carrello.getListaProdottiCarrello();
+
         System.out.println("=============================================================================================");
         System.out.println("===================================== Carrello atuale: ======================================");
         carrelloList.forEach(i -> System.out.println(((Dispositivo) i).stampaProdottoCliente()));
@@ -119,7 +121,8 @@ public class Main {
     private static Carrello aggCarrello(Scanner scanner, Magazzino magazzino, Carrello carrello) {
         try {
             System.out.println("ID dispositivo:");
-            String idDispositivo = scanner.nextLine();
+            String input = scanner.nextLine();
+            UUID idDispositivo = UUID.fromString(input);
             Prodotto prodotto = magazzino.ricercaProdotto(idDispositivo);
             if (carrello.aggiungeIdDispositivoAlCarrello(prodotto)) {
                 magazzino.rimuoveProdotto(idDispositivo);

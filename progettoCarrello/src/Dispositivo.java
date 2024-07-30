@@ -1,7 +1,9 @@
+import java.util.UUID;
+
 public class Dispositivo extends Prodotto {
     private double dimensioneDisplay;
     private int dimensioneSpazio;
-    private String idDispositivo;
+    private UUID idDispositivo;
     private TipoDispositivo tipoDispositivo;
 
     @Override
@@ -15,11 +17,11 @@ public class Dispositivo extends Prodotto {
                 '}';
     }
 
-    public Dispositivo(String produttore, String modello, String descrizione, double prezzoAcquisto, double prezzoVendita, TipoDispositivo tipoDispositivo, double dimensioneDisplay, int dimensioneSpazio, String idDispositivo) {
+    public Dispositivo(String produttore, String modello, String descrizione, double prezzoAcquisto, double prezzoVendita, TipoDispositivo tipoDispositivo, double dimensioneDisplay, int dimensioneSpazio) {
         super(produttore, modello, descrizione, prezzoAcquisto, prezzoVendita);
         this.dimensioneDisplay = dimensioneDisplay;
         this.dimensioneSpazio = dimensioneSpazio;
-        this.idDispositivo = idDispositivo;
+        this.idDispositivo = UUID.randomUUID();
         this.tipoDispositivo = tipoDispositivo;
     }
 
@@ -31,7 +33,7 @@ public class Dispositivo extends Prodotto {
         return dimensioneSpazio;
     }
 
-    public String getIdDispositivo() {
+    public UUID getIdDispositivo() {
         return idDispositivo;
     }
 
@@ -41,7 +43,7 @@ public class Dispositivo extends Prodotto {
 
     @Override
     public String stampaProdottoCliente() {
-        return "Produttore: " + produttore + " | Modello: " + modello + " | Descrizione: " + descrizione + " | Prezzo: " + prezzoVendita + " | Tipo: " + tipoDispositivo + " | Dimensione display: " + dimensioneDisplay + " | Dimensione di memoria: " + dimensioneSpazio;
+        return "Produttore: " + produttore + " | Modello: " + modello + " | Descrizione: " + descrizione + " | Prezzo: " + prezzoVendita + " | Tipo: " + tipoDispositivo + " | Dimensione display: " + dimensioneDisplay + " | Dimensione di memoria: " + dimensioneSpazio + " | ID dispositivo: " + idDispositivo;
     }
 
     @Override

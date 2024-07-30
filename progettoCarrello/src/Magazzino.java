@@ -1,6 +1,7 @@
 import javax.tools.Diagnostic;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Magazzino {
     private ArrayList<Prodotto> listaProdotti;
@@ -25,7 +26,7 @@ public class Magazzino {
         return listaProdotti;
     }
 
-    public boolean aggAlMagazzino(Prodotto prodotto){
+    public boolean aggAlMagazzino(Prodotto prodotto) {
         return listaProdotti.add(prodotto);
     }
 
@@ -35,7 +36,7 @@ public class Magazzino {
             throw new RicercaNullaException();
         }
         for (Prodotto i : listaProdotti) {
-            if (p.equals(((Dispositivo)i).getTipoDispositivo())) {
+            if (p.equals(((Dispositivo) i).getTipoDispositivo())) {
                 arrayTipo.add(i);
             }
         }
@@ -115,12 +116,12 @@ public class Magazzino {
         return arrayRangePrezzo;
     }
 
-    public Prodotto ricercaProdotto(String id) throws RicercaNullaException {
+    public Prodotto ricercaProdotto(UUID id) throws RicercaNullaException {
         if (listaProdotti.isEmpty()) {
             throw new RicercaNullaException();
         }
         for (Prodotto i : listaProdotti) {
-            if (id.equals(((Dispositivo)i).getIdDispositivo())){
+            if (id.equals(((Dispositivo) i).getIdDispositivo())) {
                 return i;
             }
         }
@@ -128,13 +129,13 @@ public class Magazzino {
 
     }
 
-    public boolean rimuoveProdotto(String idDispositivo) throws RicercaNullaException {
+    public boolean rimuoveProdotto(UUID idDispositivo) throws RicercaNullaException {
         if (listaProdotti.isEmpty()) {
             throw new RicercaNullaException();
         }
 
         for (Prodotto i : listaProdotti) {
-            if (idDispositivo.equals(((Dispositivo)i).getIdDispositivo())) {
+            if (idDispositivo.equals(((Dispositivo) i).getIdDispositivo())) {
                 return listaProdotti.remove(i);
             }
         }
