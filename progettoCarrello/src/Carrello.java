@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -5,9 +7,14 @@ public class Carrello {
     private int idCarrello;
     private List<Prodotto> listaProdottiCarrello;
     private boolean chiuso;
+    private OffsetDateTime dateChiusura;
 
     public String toStringDetailsClient() {
         return super.toString();
+    }
+
+    public OffsetDateTime getDateChiusura() {
+        return dateChiusura;
     }
 
     public List<Prodotto> getListaProdottiCarrello() {
@@ -70,6 +77,7 @@ public class Carrello {
     }
 
     public Carrello finalizaCompra() {
+        dateChiusura = OffsetDateTime.now();
         this.chiuso = true;
         return this;
     }
