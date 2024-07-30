@@ -1,6 +1,8 @@
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
@@ -164,6 +166,7 @@ public class Main {
         ArrayList<Carrello> carrelloList = ((Cliente) utente).getStoricoAcquisti();
         for (Carrello i : carrelloList) {
             System.out.println("Carrello: " + i.getIdCarrello() + " | Prezzo totale del carrello: " + i.totaleCarrello());
+            System.out.println("Detaglio del'acquisto: " + i.getDateChiusura().format(DateTimeFormatter.ofPattern("dd-MMMM-yyyy hh:mm a", Locale.ITALY)));
             List<Prodotto> carrelloListProdotto = i.getListaProdottiCarrello();
             carrelloListProdotto.forEach(j -> System.out.println(((Dispositivo) j).stampaProdottoCliente()));
             System.out.println();
