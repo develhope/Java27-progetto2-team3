@@ -1,4 +1,4 @@
-import javax.tools.Diagnostic;
+import Exception.RicercaNullaException;
 import java.util.ArrayList;
 import java.util.List;
 

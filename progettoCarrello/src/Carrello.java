@@ -1,4 +1,4 @@
-import java.time.LocalDate;
+import Exception.CarrelloChiusoException;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +41,7 @@ public class Carrello {
         return chiuso;
     }
 
-    public boolean aggiungeIdDispositivoAlCarrello(Prodotto dispositivo) throws RicercaNullaException, CarrelloChiusoException {
+    public boolean aggiungeIdDispositivoAlCarrello(Prodotto dispositivo) throws CarrelloChiusoException {
         if (chiuso) {
             throw new CarrelloChiusoException();
         }
