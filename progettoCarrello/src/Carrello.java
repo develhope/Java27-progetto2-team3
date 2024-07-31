@@ -1,3 +1,5 @@
+import Exception.CarrelloChiusoException;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -5,9 +7,14 @@ public class Carrello {
     private int idCarrello;
     private List<Prodotto> listaProdottiCarrello;
     private boolean chiuso;
+    private OffsetDateTime dateChiusura;
 
     public String toStringDetailsClient() {
         return super.toString();
+    }
+
+    public OffsetDateTime getDateChiusura() {
+        return dateChiusura;
     }
 
     public List<Prodotto> getListaProdottiCarrello() {
@@ -34,7 +41,7 @@ public class Carrello {
         return chiuso;
     }
 
-    public boolean aggiungeIdDispositivoAlCarrello(Prodotto dispositivo) throws RicercaNullaException, CarrelloChiusoException {
+    public boolean aggiungeIdDispositivoAlCarrello(Prodotto dispositivo) throws CarrelloChiusoException {
         if (chiuso) {
             throw new CarrelloChiusoException();
         }
@@ -70,11 +77,16 @@ public class Carrello {
     }
 
     public Carrello finalizaCompra() {
+        dateChiusura = OffsetDateTime.now();
         this.chiuso = true;
         return this;
     }
 
     public void cleanCarrello() {
         listaProdottiCarrello.clear();
+    }
+
+    public Double spesaMedia() {
+        return listaProdottiCarrello.isEmpty() ? 0.0 : totaleCarrello() / listaProdottiCarrello.size();
     }
 }

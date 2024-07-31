@@ -1,4 +1,4 @@
-import javax.tools.Diagnostic;
+import Exception.RicercaNullaException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -104,9 +104,9 @@ public class Magazzino {
             throw new RicercaNullaException();
         }
         for (Prodotto i : listaProdotti) {
-            if ((v1 > i.getPrezzoVendita()) && (v2 > i.getPrezzoVendita())) {
+            if ((v1 >= i.getPrezzoVendita()) && (v2 >= i.getPrezzoVendita())) {
                 arrayRangePrezzo.add(i);
-            } else if ((v2 > i.getPrezzoVendita()) && (v1 > i.getPrezzoVendita())) {
+            } else if ((v2 >= i.getPrezzoVendita()) && (v1 >= i.getPrezzoVendita())) {
                 arrayRangePrezzo.add(i);
             }
         }
