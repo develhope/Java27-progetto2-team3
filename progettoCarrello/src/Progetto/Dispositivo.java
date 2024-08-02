@@ -1,12 +1,14 @@
+package Progetto;
+
 public class Dispositivo extends Prodotto {
-    private double dimensioneDisplay;
-    private int dimensioneSpazio;
-    private String idDispositivo;
-    private TipoDispositivo tipoDispositivo;
+    protected double dimensioneDisplay;
+    protected int dimensioneSpazio;
+    protected String idDispositivo;
+    protected TipoDispositivo tipoDispositivo;
 
     @Override
     public String toStringDetailsClient() {
-        return "Dispositivo{" +
+        return "Progetto.Dispositivo{" +
                 ", idDispositivo='" + idDispositivo + '\'' +
                 ", tipoDispositivo=" + tipoDispositivo +
                 ", produttore='" + produttore + '\'' +
@@ -46,6 +48,6 @@ public class Dispositivo extends Prodotto {
 
     @Override
     public String stampaProdottoMagazzinieri() {
-        return "ID Dispositivo: " + idDispositivo + " | Produttore: " + produttore + " | Modello: " + modello + " | Descrizione: " + descrizione + " | Prezzo vendita: " + prezzoVendita + " | Prezzo acquisto: " + prezzoAcquisto + " | Tipo: " + tipoDispositivo + " | Dimensione display: " + dimensioneDisplay + " | Dimensione di memoria: " + dimensioneSpazio;
+        return "ID Progetto.Dispositivo: " + idDispositivo + " | Produttore: " + produttore + " | Modello: " + modello + " | Descrizione: " + descrizione + " | Prezzo vendita: " + prezzoVendita + " | Prezzo acquisto: " + prezzoAcquisto + " | Tipo: " + tipoDispositivo + " | Dimensione display: " + dimensioneDisplay + " | Dimensione di memoria: " + dimensioneSpazio;
     }
 }

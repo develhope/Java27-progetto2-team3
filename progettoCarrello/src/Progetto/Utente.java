@@ -1,10 +1,22 @@
-public abstract class Utente{
+package Progetto;
 
+public abstract class Utente{
     protected String nome;
     protected String email;
     protected int telefono;
     protected String password;
     protected TipoUtente tipoUtente;
+
+    @Override
+    public String toString() {
+        return "Progetto.Utente{" +
+                "nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", telefono=" + telefono +
+                ", password='" + password + '\'' +
+                ", tipoUtente=" + tipoUtente +
+                '}';
+    }
 
     public Utente(String nome, String email, int telefono, String password) {
         this.nome = nome;

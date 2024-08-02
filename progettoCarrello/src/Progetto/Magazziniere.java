@@ -1,3 +1,6 @@
+package Progetto;
+import Exceptions.*;
+
 public class Magazziniere extends Utente {
 
     Magazzino magazzino = new Magazzino();
@@ -17,7 +20,7 @@ public class Magazziniere extends Utente {
 
     @Override
     public String getTipo() {
-        return "Magazziniere";
+        return "Progetto.Magazziniere";
     }
 
     public boolean rimuoviDalMagazzino(Prodotto id) throws RicercaNullaException {

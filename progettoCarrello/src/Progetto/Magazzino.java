@@ -1,4 +1,7 @@
-import javax.tools.Diagnostic;
+package Progetto;
+
+import Exceptions.RicercaNullaException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +54,7 @@ public class Magazzino {
             throw new RicercaNullaException();
         }
         for (Prodotto i : listaProdotti) {
-            if (p.equals(i.getProduttore())) {
+            if (p.equals(((Dispositivo)i).getProduttore())) {
                 arrayProduttore.add(i);
             }
         }
@@ -68,7 +71,7 @@ public class Magazzino {
             throw new RicercaNullaException();
         }
         for (Prodotto i : listaProdotti) {
-            if (m.equals(i.getModello())) {
+            if (m.equals(((Dispositivo)i).getModello())) {
                 arrayModelo.add(i);
             }
         }
@@ -85,7 +88,7 @@ public class Magazzino {
             throw new RicercaNullaException();
         }
         for (Prodotto i : listaProdotti) {
-            if (v.equals(i.getPrezzoVendita())) {
+            if (v.equals(((Dispositivo)i).getPrezzoVendita())) {
                 arrayPrezzoVendita.add(i);
             }
         }

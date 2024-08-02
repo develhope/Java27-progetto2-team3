@@ -1,8 +1,11 @@
+package Progetto;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class Cliente extends Utente {
     private Carrello carrelloCliente;
-    private ArrayList<Carrello> storicoAcquisti;
+    private List<Carrello> storicoAcquisti;
 
     public Cliente(String nome, String email, int telefono, String password) {
         super(nome, email, telefono, password);
@@ -11,7 +14,15 @@ public class Cliente extends Utente {
         this.carrelloCliente = null;
     }
 
-    public ArrayList<Carrello> getStoricoAcquisti() {
+    public void setStoricoAcquisti(List<Carrello> storicoAcquisti) {
+        for (Carrello i:storicoAcquisti){
+            if (i!=null){
+                this.storicoAcquisti.add(i);
+            }
+        }
+    }
+
+    public List<Carrello> getStoricoAcquisti() {
         return storicoAcquisti;
     }
 
@@ -25,6 +36,6 @@ public class Cliente extends Utente {
 
     @Override
     public String getTipo() {
-        return "Cliente";
+        return "Progetto.Cliente";
     }
 }

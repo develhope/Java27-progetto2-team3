@@ -1,3 +1,5 @@
+package Progetto;
+
 public abstract class Prodotto {
     protected String produttore;
     protected String modello;
@@ -6,7 +8,7 @@ public abstract class Prodotto {
     protected double prezzoVendita;
 
     public String toStringDetailsClient() {
-        return "Prodotto{" +
+        return "Progetto.Prodotto{" +
                 "produttore='" + produttore + '\'' +
                 ", modello='" + modello +
                 '}';

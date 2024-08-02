@@ -1,0 +1,67 @@
+[
+  {
+    "type": "Magazziniere",
+    "magazziniere": {
+      "magazzino": {
+        "listaProdotti": []
+      },
+      "nome": "Duda",
+      "email": "b",
+      "telefono": 1,
+      "password": "b",
+      "tipoUtente": "MAGAZZINIERE"
+    }
+  },
+  {
+    "type": "Cliente",
+    "cliente": {
+      "listCarrello": [
+        {
+          "idCarrello": 0,
+          "listProdotto": [
+            {
+              "type": "Dispositivo",
+              "properties": {
+                "dimensioneDisplay": 12.0,
+                "dimensioneSpazio": 12,
+                "idDispositivo": "b",
+                "tipoDispositivo": "NOTEBOOK",
+                "produttore": "b",
+                "modello": "b",
+                "descrizione": "b",
+                "prezzoAcquisto": 130.0,
+                "prezzoVendita": 180.0
+              }
+            }
+          ],
+          "dateChiusura": "2::ago.::2024 16::36::38"
+        },
+        {
+          "idCarrello": 0,
+          "listProdotto": [
+            {
+              "type": "Dispositivo",
+              "properties": {
+                "dimensioneDisplay": 12.0,
+                "dimensioneSpazio": 12,
+                "idDispositivo": "c",
+                "tipoDispositivo": "NOTEBOOK",
+                "produttore": "c",
+                "modello": "c",
+                "descrizione": "c",
+                "prezzoAcquisto": 130.0,
+                "prezzoVendita": 180.0
+              }
+            }
+          ],
+          "dateChiusura": "2::ago.::2024 18::24::52"
+        }
+      ],
+      "nome": "a",
+      "email": "a",
+      "telefono": 1,
+      "password": "a",
+      "tipoUtente": "CLIENTE"
+    }
+  }
+]
