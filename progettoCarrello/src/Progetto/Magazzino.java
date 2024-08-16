@@ -1,11 +1,6 @@
-<<<<<<< HEAD:progettoCarrello/src/Progetto/Magazzino.java
 package Progetto;
 
 import Exceptions.RicercaNullaException;
-
-=======
-import Exception.RicercaNullaException;
->>>>>>> 2d0ddd304e861e4298139014b40afd151976f680:progettoCarrello/src/Magazzino.java
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

@@ -1,5 +1,6 @@
 package Test;
-
+import Exceptions.*;
+import Progetto.*;
 import org.junit.*;
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -13,12 +14,12 @@ public class CarrelloTest {
     @Before
     public void setUp() {
         carrello = new Carrello();
-        dispositivo1 = new Dispositivo("Apple", "iPhone 13", "Smartphone", 700, 1000, TipoDispositivo.SMARTPHONE, 6.1, 128, "D001");
-        dispositivo2 = new Dispositivo("Samsung", "Galaxy Tab", "Tablet", 400, 600, TipoDispositivo.TABLET, 10.5, 256, "D002");
+        dispositivo1 = new Dispositivo("Apple", "iPhone 13", "Smartphone", 700, 1000, TipoDispositivo.SMARTPHONE, 6.1, 128);
+        dispositivo2 = new Dispositivo("Samsung", "Galaxy Tab", "Tablet", 400, 600, TipoDispositivo.TABLET, 10.5, 256);
     }
 
     @Test
-    public void testAggiungeIdDispositivoAlCarrello() throws RicercaNullaException, CarrelloChiusoException {
+    public void testAggiungeIdDispositivoAlCarrello() throws RicercaNullaException, CarrelloChiusoException, CarrelloChiusoException {
         assertTrue("Il dispositivo dovrebbe essere aggiunto correttamente", carrello.aggiungeIdDispositivoAlCarrello(dispositivo1));
         assertEquals("La dimensione della lista dovrebbe essere 1", 1, carrello.getListaProdottiCarrello().size());
     }

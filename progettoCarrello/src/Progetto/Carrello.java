@@ -1,11 +1,6 @@
-<<<<<<< HEAD:progettoCarrello/src/Progetto/Carrello.java
 package Progetto;
 import Exceptions.*;
 import java.time.LocalDateTime;
-=======
-import Exception.CarrelloChiusoException;
-import java.time.OffsetDateTime;
->>>>>>> 2d0ddd304e861e4298139014b40afd151976f680:progettoCarrello/src/Carrello.java
 import java.util.ArrayList;
 import java.util.List;
 

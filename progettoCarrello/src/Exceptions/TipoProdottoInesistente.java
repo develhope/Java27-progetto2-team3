@@ -1,4 +1,4 @@
-package Exception;
+package Exceptions;
 
 public class TipoProdottoInesistente extends Exception{
     public TipoProdottoInesistente(){

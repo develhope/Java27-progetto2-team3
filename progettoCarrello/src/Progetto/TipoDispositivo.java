@@ -1,6 +1,6 @@
 package Progetto;
 
-enum TipoDispositivo {
+public enum TipoDispositivo {
     TABLET,
     SMARTPHONE,
     NOTEBOOK

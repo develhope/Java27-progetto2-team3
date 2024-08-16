@@ -1,20 +1,11 @@
-<<<<<<< HEAD:progettoCarrello/src/Progetto/Dispositivo.java
 package Progetto;
+import java.util.UUID;
 
 public class Dispositivo extends Prodotto {
     protected double dimensioneDisplay;
     protected int dimensioneSpazio;
-    protected String idDispositivo;
+    protected UUID idDispositivo;
     protected TipoDispositivo tipoDispositivo;
-=======
-import java.util.UUID;
-
-public class Dispositivo extends Prodotto {
-    private double dimensioneDisplay;
-    private int dimensioneSpazio;
-    private UUID idDispositivo;
-    private TipoDispositivo tipoDispositivo;
->>>>>>> 2d0ddd304e861e4298139014b40afd151976f680:progettoCarrello/src/Dispositivo.java
 
     @Override
     public String toStringDetailsClient() {

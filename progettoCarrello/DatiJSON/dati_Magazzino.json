@@ -1,1 +1,16 @@
-[{"type":"Dispositivo","properties":{"dimensioneDisplay":12.0,"dimensioneSpazio":12,"idDispositivo":"d","tipoDispositivo":"NOTEBOOK","produttore":"d","modello":"d","descrizione":"d","prezzoAcquisto":130.0,"prezzoVendita":180.0}}]
+[
+  {
+    "type": "Dispositivo",
+    "properties": {
+      "dimensioneDisplay": 12.0,
+      "dimensioneSpazio": 12,
+      "idDispositivo": "5c995b9d-3a6c-4fba-9049-2f446ff67aa6",
+      "tipoDispositivo": "NOTEBOOK",
+      "produttore": "d",
+      "modello": "d",
+      "descrizione": "d",
+      "prezzoAcquisto": 130.0,
+      "prezzoVendita": 180.0
+    }
+  }
+]
