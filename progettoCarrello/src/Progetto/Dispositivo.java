@@ -1,3 +1,4 @@
+<<<<<<< HEAD:progettoCarrello/src/Progetto/Dispositivo.java
 package Progetto;
 
 public class Dispositivo extends Prodotto {
@@ -5,6 +6,15 @@ public class Dispositivo extends Prodotto {
     protected int dimensioneSpazio;
     protected String idDispositivo;
     protected TipoDispositivo tipoDispositivo;
+=======
+import java.util.UUID;
+
+public class Dispositivo extends Prodotto {
+    private double dimensioneDisplay;
+    private int dimensioneSpazio;
+    private UUID idDispositivo;
+    private TipoDispositivo tipoDispositivo;
+>>>>>>> 2d0ddd304e861e4298139014b40afd151976f680:progettoCarrello/src/Dispositivo.java
 
     @Override
     public String toStringDetailsClient() {
@@ -17,11 +27,11 @@ public class Dispositivo extends Prodotto {
                 '}';
     }
 
-    public Dispositivo(String produttore, String modello, String descrizione, double prezzoAcquisto, double prezzoVendita, TipoDispositivo tipoDispositivo, double dimensioneDisplay, int dimensioneSpazio, String idDispositivo) {
+    public Dispositivo(String produttore, String modello, String descrizione, double prezzoAcquisto, double prezzoVendita, TipoDispositivo tipoDispositivo, double dimensioneDisplay, int dimensioneSpazio) {
         super(produttore, modello, descrizione, prezzoAcquisto, prezzoVendita);
         this.dimensioneDisplay = dimensioneDisplay;
         this.dimensioneSpazio = dimensioneSpazio;
-        this.idDispositivo = idDispositivo;
+        this.idDispositivo = UUID.randomUUID();
         this.tipoDispositivo = tipoDispositivo;
     }
 
@@ -33,7 +43,7 @@ public class Dispositivo extends Prodotto {
         return dimensioneSpazio;
     }
 
-    public String getIdDispositivo() {
+    public UUID getIdDispositivo() {
         return idDispositivo;
     }
 
@@ -43,7 +53,7 @@ public class Dispositivo extends Prodotto {
 
     @Override
     public String stampaProdottoCliente() {
-        return "Produttore: " + produttore + " | Modello: " + modello + " | Descrizione: " + descrizione + " | Prezzo: " + prezzoVendita + " | Tipo: " + tipoDispositivo + " | Dimensione display: " + dimensioneDisplay + " | Dimensione di memoria: " + dimensioneSpazio;
+        return "Produttore: " + produttore + " | Modello: " + modello + " | Descrizione: " + descrizione + " | Prezzo: " + prezzoVendita + " | Tipo: " + tipoDispositivo + " | Dimensione display: " + dimensioneDisplay + " | Dimensione di memoria: " + dimensioneSpazio + " | ID dispositivo: " + idDispositivo;
     }
 
     @Override

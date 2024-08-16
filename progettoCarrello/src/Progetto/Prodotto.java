@@ -14,6 +14,13 @@ public abstract class Prodotto {
                 '}';
     }
 
+    public String toStringDetailsMagazziniere() {
+        return "Prodotto{" +
+                "produttore='" + produttore + '\'' +
+                ", modello='" + modello +
+                '}';
+    }
+
     public Prodotto(String produttore, String modello, String descrizione, double prezzoAcquisto, double prezzoVendita) {
         this.produttore = produttore;
         this.modello = modello;
