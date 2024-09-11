@@ -9,6 +9,7 @@ public class TypeGSONUtente {
         this.type = type;
         this.cliente = cliente;
     }
+
     public TypeGSONUtente(String type, Magazziniere magazziniere) {
         this.type = type;
         this.magazziniere = magazziniere;
