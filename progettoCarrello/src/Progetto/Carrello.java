@@ -1,5 +1,6 @@
-import Exception.CarrelloChiusoException;
-import java.time.OffsetDateTime;
+package Progetto;
+import Exceptions.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,13 +8,21 @@ public class Carrello {
     private int idCarrello;
     private List<Prodotto> listaProdottiCarrello;
     private boolean chiuso;
-    private OffsetDateTime dateChiusura;
+    private LocalDateTime dateChiusura;
+
+    public boolean aggAlCarrelloGSON(Prodotto prodotto){
+        return listaProdottiCarrello.add(prodotto);
+    }
+
+    public void aggDateChiusura(LocalDateTime dateChiusura) {
+        this.dateChiusura = dateChiusura;
+        this.chiuso = true;
+    }
 
     public String toStringDetailsClient() {
         return super.toString();
     }
-
-    public OffsetDateTime getDateChiusura() {
+    public LocalDateTime getDateChiusura() {
         return dateChiusura;
     }
 
@@ -77,7 +86,7 @@ public class Carrello {
     }
 
     public Carrello finalizaCompra() {
-        dateChiusura = OffsetDateTime.now();
+        dateChiusura = LocalDateTime.now();
         this.chiuso = true;
         return this;
     }

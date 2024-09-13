@@ -1,4 +1,4 @@
-package Exception;
+package Exceptions;
 
 public class RicercaNullaException extends Exception{
     public RicercaNullaException(){

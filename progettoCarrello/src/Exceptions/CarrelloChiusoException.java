@@ -1,4 +1,4 @@
-package Exception;
+package Exceptions;
 
 public class CarrelloChiusoException extends Exception{
     public CarrelloChiusoException(){
