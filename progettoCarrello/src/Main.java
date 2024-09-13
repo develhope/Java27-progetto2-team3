@@ -87,7 +87,8 @@ public class Main {
                             stampaStoricoCarrello(utenteLogin);
                             break;
                         case "3":
-
+                            ricercaProdotto(scanner, magazzino);
+                            break;
                         default:
                             System.out.println("Selezione invalida!");
                     }
@@ -201,6 +202,81 @@ public class Main {
         }
     }
 
+ //GESTIONE RICERCA
+
+    public static String menuRicerca(Scanner scanner) {
+        System.out.println("|-------------------- 1- Cerca per produttore | 2- Cerca per modello | 3- Cerca per prezzo vendita | 4- Cerca per range prezzo vendita --------------------|");
+        //Nel Visualizza prodotto deve avere tutte le ricerche
+        System.out.println("|----------------------------  0- Esci ----------------------------|");
+        return scanner.nextLine();
+    }
+
+    public static List<Prodotto> ricercaProdotto(Scanner scanner, Magazzino magazzino) throws RicercaNullaException {
+        List<Prodotto> magazzinoList = new ArrayList<>();
+        magazzinoList.addAll(magazzino.visualizzaDispositivi());
+        System.out.println("=============================================================================================");
+        System.out.println("===================================== Carrello attuale: ======================================");
+        magazzinoList.forEach(i -> System.out.println(((Dispositivo) i).stampaProdottoCliente()));
+        System.out.println("=============================================================================================");
+        System.out.println("");
+        String sceltaMenu = menuRicerca(scanner);
+        List<Prodotto> result = new ArrayList<>();
+        switch (sceltaMenu) {
+            case "0":
+                return result;
+            case "1":
+                result = ricercaProduttore(scanner, magazzino);
+                break;
+            case "2":
+                result = ricercaModello(scanner, magazzino);
+                break;
+            case "3":
+               result = ricercaPrezzoVendita(scanner, magazzino);
+                break;
+            case "4":
+               result = ricercaRangePrezzoVendita(scanner, magazzino);
+                break;
+            default:
+                System.out.println("Ricerca non riuscita!");
+                return result;
+        }
+        if (result.isEmpty()) {
+            System.out.println("Prodotto non trovato");
+        }
+        return result;
+    }
+
+    public static List<Prodotto> ricercaProduttore(Scanner scanner, Magazzino magazzino) throws RicercaNullaException {
+        String produttore = scanner.nextLine();
+        List<Prodotto> listProdotto= magazzino.ricercaPerProduttori(produttore);
+        listProdotto.forEach(i->System.out.println(i.toStringDetailsClient()));
+
+        return listProdotto;
+    }
+
+    public static List<Prodotto> ricercaModello(Scanner scanner, Magazzino magazzino) throws RicercaNullaException {
+        String modello = scanner.nextLine();
+        List<Prodotto> listProdotto= magazzino.ricercaPerModello(modello);
+        listProdotto.forEach(i->System.out.println(i.toStringDetailsClient()));
+
+        return listProdotto;
+    }
+
+    public static List<Prodotto> ricercaPrezzoVendita(Scanner scanner, Magazzino magazzino) throws RicercaNullaException {
+        double prezzoVendita = scanner.nextDouble();
+        List<Prodotto> listProdotto= magazzino.ricercaPrezzoVendita(prezzoVendita);
+        listProdotto.forEach(i->System.out.println(i.toStringDetailsClient()));
+
+        return listProdotto;
+    }
+    public static List<Prodotto> ricercaRangePrezzoVendita(Scanner scanner, Magazzino magazzino) throws RicercaNullaException {
+        double prezzoVendita = scanner.nextDouble();
+        double prezzoVendita2 = scanner.nextDouble();
+        List<Prodotto> listProdotto= magazzino.ricercaRangePrezzi(prezzoVendita , prezzoVendita2);
+        listProdotto.forEach(i->System.out.println(i.toStringDetailsClient()));
+
+        return listProdotto;
+    }
 
     //REGISTRO USER
     public static Utente creaUtente(String input2, String emailUtente, String passwordUtente) {

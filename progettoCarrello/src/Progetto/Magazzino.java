@@ -64,7 +64,7 @@ public class Magazzino {
         return arrayProduttore;
     }
 
-    public List<Prodotto> ricercaPerModelo(String m) throws RicercaNullaException {
+    public List<Prodotto> ricercaPerModello(String m) throws RicercaNullaException {
         List<Prodotto> arrayModelo = new ArrayList<>();
 
         if (listaProdotti.isEmpty()) {
