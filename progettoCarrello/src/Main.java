@@ -11,6 +11,7 @@ import java.lang.reflect.Type;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 public class Main {
     public static void main(String[] args) throws RicercaNullaException, CarrelloChiusoException {
@@ -130,9 +131,12 @@ public class Main {
         System.out.println("");
 
         System.out.println("1 - Agg Carrello | 2 - Rimuove Carrello | 3 - Finaliza Carrello");
+        System.out.println("---------------- 0 - Torna al menu principale -----------------");
         String sceltaSubMenu = scanner.nextLine();
 
         switch (sceltaSubMenu) {
+            case "0":
+                break;
             case "1":
                 return aggCarrello(scanner, magazzino, carrello);
             case "2":
@@ -141,22 +145,28 @@ public class Main {
                 return chiudeCarrello(utente, carrello);
             default:
                 System.out.println("Opzione invalida, torna al menu principale!");
-                return carrello;
+                break;
         }
+        return carrello;
     }
 
     private static Carrello aggCarrello(Scanner scanner, Magazzino magazzino, Carrello carrello) {
         try {
             System.out.println("ID dispositivo:");
             String input = scanner.nextLine();
-            UUID idDispositivo = UUID.fromString(input);
-            Prodotto prodotto = magazzino.ricercaProdotto(idDispositivo);
-            if (carrello.aggiungeIdDispositivoAlCarrello(prodotto)) {
-                magazzino.rimuoveProdotto(idDispositivo);
-                System.out.println("Prodotto di modello: " + prodotto.getModello() + " aggiunto al carrello!");
-                return carrello;
+            UUID idDispositivo;
+            try {
+                idDispositivo = UUID.fromString(input);
+                Prodotto prodotto = magazzino.ricercaProdotto(idDispositivo);
+                if (carrello.aggiungeIdDispositivoAlCarrello(prodotto)) {
+                    magazzino.rimuoveProdotto(idDispositivo);
+                    System.out.println("Prodotto di modello: " + prodotto.getModello() + " aggiunto al carrello!");
+                    return carrello;
+                }
+            } catch (IllegalArgumentException e) {
+                e.getMessage();
             }
-        } catch (RicercaNullaException | CarrelloChiusoException e) {
+        } catch (RicercaNullaException | CarrelloChiusoException | IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
         System.out.println("Prodotto non aggiunto!");
@@ -166,13 +176,14 @@ public class Main {
     private static Carrello rimCarrello(Scanner scanner, Carrello carrello, Magazzino magazzino) {
         try {
             System.out.println("ID dispositivo:");
-            String idDispositivo = scanner.nextLine();
+            String input = scanner.nextLine();
+            UUID idDispositivo = UUID.fromString(input);
             Prodotto prodotto = carrello.rimuoviIdDispositivoAlCarrello(idDispositivo);
             if (magazzino.aggAlMagazzino(prodotto)) {
                 System.out.println("Prodotto di modello: " + prodotto.getModello() + " rimosso dal carrello!");
                 return carrello;
             }
-        } catch (NullPointerException | CarrelloChiusoException e) {
+        } catch (NullPointerException | CarrelloChiusoException | IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
         System.out.println("Prodotto non rimosso!");
@@ -202,21 +213,26 @@ public class Main {
         }
     }
 
- //GESTIONE RICERCA
+    //GESTIONE RICERCA
 
     public static String menuRicerca(Scanner scanner) {
-        System.out.println("|-------------------- 1- Cerca per produttore | 2- Cerca per modello | 3- Cerca per prezzo vendita | 4- Cerca per range prezzo vendita --------------------|");
+        System.out.println("|---------- 1- Cerca per produttore | 2- Cerca per modello | 3- Cerca per prezzo vendita | 4- Cerca per range prezzo vendita ----------|");
         //Nel Visualizza prodotto deve avere tutte le ricerche
-        System.out.println("|----------------------------  0- Esci ----------------------------|");
+        System.out.println("|-------------------------------------------------------  0- Esci ---------------------------------------------------------------------|");
         return scanner.nextLine();
     }
 
     public static List<Prodotto> ricercaProdotto(Scanner scanner, Magazzino magazzino) throws RicercaNullaException {
         List<Prodotto> magazzinoList = new ArrayList<>();
-        magazzinoList.addAll(magazzino.visualizzaDispositivi());
         System.out.println("=============================================================================================");
-        System.out.println("===================================== Carrello attuale: ======================================");
+        System.out.println("================================= Dispositivi disponibile: ==================================");
+        magazzinoList.addAll(magazzino.visualizzaDispositivi());
         magazzinoList.forEach(i -> System.out.println(((Dispositivo) i).stampaProdottoCliente()));
+
+        if (magazzinoList == null) {
+            System.out.println("++++++++++++++++++++++++ Magazzino vuoto! ++++++++++++++++++++++++");
+        }
+
         System.out.println("=============================================================================================");
         System.out.println("");
         String sceltaMenu = menuRicerca(scanner);
@@ -231,51 +247,82 @@ public class Main {
                 result = ricercaModello(scanner, magazzino);
                 break;
             case "3":
-               result = ricercaPrezzoVendita(scanner, magazzino);
+                try {
+                    result = ricercaPrezzoVendita(scanner, magazzino);
+                } catch (Exception e) {
+                    e.getMessage();
+                }
+                scanner.nextLine();
                 break;
             case "4":
-               result = ricercaRangePrezzoVendita(scanner, magazzino);
+                try {
+                    result = ricercaRangePrezzoVendita(scanner, magazzino);
+                } catch (Exception e) {
+                    e.getMessage();
+                }
+                scanner.nextLine();
                 break;
             default:
                 System.out.println("Ricerca non riuscita!");
                 return result;
         }
-        if (result.isEmpty()) {
+        if (result != null){
+            if (result.isEmpty()) {
+                System.out.println("Prodotto non trovato");
+            }
+        }else{
             System.out.println("Prodotto non trovato");
         }
         return result;
     }
 
     public static List<Prodotto> ricercaProduttore(Scanner scanner, Magazzino magazzino) throws RicercaNullaException {
+        System.out.println("Produttore:");
         String produttore = scanner.nextLine();
-        List<Prodotto> listProdotto= magazzino.ricercaPerProduttori(produttore);
-        listProdotto.forEach(i->System.out.println(i.toStringDetailsClient()));
+        List<Prodotto> listProdotto = magazzino.ricercaPerProduttori(produttore);
+        listProdotto.forEach(i -> System.out.println(i.stampaProdottoCliente()));
 
         return listProdotto;
+
     }
 
     public static List<Prodotto> ricercaModello(Scanner scanner, Magazzino magazzino) throws RicercaNullaException {
+        System.out.println("Modello:");
         String modello = scanner.nextLine();
-        List<Prodotto> listProdotto= magazzino.ricercaPerModello(modello);
-        listProdotto.forEach(i->System.out.println(i.toStringDetailsClient()));
+        List<Prodotto> listProdotto = magazzino.ricercaPerModello(modello);
+        listProdotto.forEach(i -> System.out.println(i.stampaProdottoCliente()));
 
         return listProdotto;
     }
 
     public static List<Prodotto> ricercaPrezzoVendita(Scanner scanner, Magazzino magazzino) throws RicercaNullaException {
-        double prezzoVendita = scanner.nextDouble();
-        List<Prodotto> listProdotto= magazzino.ricercaPrezzoVendita(prezzoVendita);
-        listProdotto.forEach(i->System.out.println(i.toStringDetailsClient()));
+        try {
+            System.out.println("Prezzo Vendita:");
+            double prezzoVendita = scanner.nextDouble();
+            List<Prodotto> listProdotto = magazzino.ricercaPrezzoVendita(prezzoVendita);
+            listProdotto.forEach(i -> System.out.println(i.stampaProdottoCliente()));
 
-        return listProdotto;
+            return listProdotto;
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return null;
     }
-    public static List<Prodotto> ricercaRangePrezzoVendita(Scanner scanner, Magazzino magazzino) throws RicercaNullaException {
-        double prezzoVendita = scanner.nextDouble();
-        double prezzoVendita2 = scanner.nextDouble();
-        List<Prodotto> listProdotto= magazzino.ricercaRangePrezzi(prezzoVendita , prezzoVendita2);
-        listProdotto.forEach(i->System.out.println(i.toStringDetailsClient()));
 
-        return listProdotto;
+    public static List<Prodotto> ricercaRangePrezzoVendita(Scanner scanner, Magazzino magazzino) throws RicercaNullaException {
+        try {
+            System.out.println("Prezzo Vendita minimo:");
+            double prezzoVendita = scanner.nextDouble();
+            System.out.println("Prezzo Vendita massimo:");
+            double prezzoVendita2 = scanner.nextDouble();
+            List<Prodotto> listProdotto = magazzino.ricercaRangePrezzi(prezzoVendita, prezzoVendita2);
+            listProdotto.forEach(i -> System.out.println(i.stampaProdottoCliente()));
+
+            return listProdotto;
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return null;
     }
 
     //REGISTRO USER
@@ -322,14 +369,13 @@ public class Main {
         System.out.println("|---------- 1- Carrello Atuale | 2- Visualizza storico carrello | 3- Lista Prodotti -----------|");
         //Nel carrello atuale deve avere agg e rim prodotto carrello
         //Nella lista Prodotti deve avere tutte le ricerche
-        System.out.println("|---------------------------- 4- Modifica dati personale | 0- Esci ----------------------------|");
+        System.out.println("|---------------------------------------- 0- Esci ----------------------------------------|");
         return scanner.nextLine();
     }
 
     public static String menuMagazzinieri(Scanner scanner) {
-        System.out.println("|------------------------------------ 1- Visualizza magazzino ---------------------------------|");
+        System.out.println("|------------------------------------ 1- Visualizza magazzino | 0- Esci ---------------------------------|");
         //Nel Visualizza magazzino deve avere tutte le ricerche
-        System.out.println("|---------------------------- 3- Modifica dati personale | 0- Esci ----------------------------|");
         return scanner.nextLine();
     }
 
@@ -471,7 +517,7 @@ public class Main {
         System.out.println("=============================================================================================");
         System.out.println("===================================== Prodotti magazzino: ======================================");
         for (Prodotto i : prodotto) {
-            System.out.println(i.toStringDetailsMagazziniere());
+            System.out.println(i.stampaProdottoMagazzinieri());
         }
         System.out.println("=============================================================================================" + "\n");
 
@@ -481,8 +527,8 @@ public class Main {
 
         switch (sceltaSubMenu) {
             case "1":
-                System.out.println("1 - ricarca per tipo | 2 - ricerca per produttore | 3 - ricerca per modello");
-                System.out.println("4 - ricerca per prezzo vendita | 5 - ricerca per range prezzo | 6 - ricerca per prodotto specifico");
+                System.out.println("1 - Ricerca per tipo | 2 - Ricerca per produttore | 3 - Ricerca per modello");
+                System.out.println("4 - Ricerca per prezzo vendita | 5 - Rricerca per range prezzo | 6 - Ricerca per prodotto specifico");
                 String sceltaRicerca = scanner.nextLine();
                 menuRicercaMagazzinieri(sceltaRicerca, magazzino, scanner);
                 break;
@@ -493,7 +539,11 @@ public class Main {
                 break;
             case "3":
                 System.out.println("Inserire id del dispositivo da eliminare");
-                magazzino.rimuoveProdotto(UUID.fromString(scanner.nextLine()));
+                try {
+                    magazzino.rimuoveProdotto(UUID.fromString(scanner.nextLine()));
+                } catch (Exception e) {
+                    e.getMessage();
+                }
                 break;
 
             case "4":
@@ -505,72 +555,105 @@ public class Main {
     }
 
     public static void menuRicercaMagazzinieri(String sceltaRicerca, Magazzino magazzino, Scanner scanner) throws RicercaNullaException {
+        ArrayList<Prodotto> listaVisualizza = new ArrayList<>();
         switch (sceltaRicerca) {
             case "1":
+                System.out.println("Tipo: ");
                 String tipo = scanner.nextLine().toUpperCase();
-                TipoDispositivo p;
-                if (tipo.equals("NOTEBOOK")) {
-                    p = TipoDispositivo.NOTEBOOK;
-                } else if (tipo.equals("SMARTPHONE")) {
-                    p = TipoDispositivo.SMARTPHONE;
-                } else if (tipo.equals("TABLET")) {
-                    p = TipoDispositivo.TABLET;
-                } else {
-                    throw new RicercaNullaException();
+                listaVisualizza = new ArrayList<Prodotto>();
+                try {
+                    if (tipo.equals("NOTEBOOK")) {
+                        listaVisualizza.addAll(magazzino.ricercaTipoDispositivo(TipoDispositivo.NOTEBOOK));
+                    } else if (tipo.equals("SMARTPHONE")) {
+                        listaVisualizza.addAll(magazzino.ricercaTipoDispositivo(TipoDispositivo.SMARTPHONE));
+                    } else if (tipo.equals("TABLET")) {
+                        listaVisualizza.addAll(magazzino.ricercaTipoDispositivo(TipoDispositivo.TABLET));
+                    } else {
+                        System.out.println("Tipo inválido!");
+                        throw new RicercaNullaException("Tipo invalido!");
+                    }
+                } catch (RicercaNullaException e) {
+                    e.getMessage();
                 }
-                magazzino.ricercaTipoDispositivo(p);
                 break;
 
             case "2":
-                magazzino.ricercaPerProduttori(scanner.nextLine());
+                System.out.println("Produttori: ");
+                listaVisualizza.addAll(magazzino.ricercaPerProduttori(scanner.nextLine()));
                 break;
 
             case "3":
-                magazzino.ricercaPerModelo(scanner.nextLine());
+                System.out.println("Modello: ");
+                listaVisualizza.addAll(magazzino.ricercaPerModello(scanner.nextLine()));
                 break;
 
             case "4":
-                magazzino.ricercaPrezzoVendita(scanner.nextDouble());
+                System.out.println("Prezzo Vendita: ");
+                listaVisualizza.addAll(magazzino.ricercaPrezzoVendita(scanner.nextDouble()));
                 break;
             case "5":
-                magazzino.ricercaRangePrezzi(scanner.nextDouble(), scanner.nextDouble());
+                System.out.println("Range Prezzo Vendita: ");
+                listaVisualizza.addAll(magazzino.ricercaRangePrezzi(scanner.nextDouble(), scanner.nextDouble()));
                 break;
             case "6":
-                magazzino.ricercaProdotto(UUID.fromString(scanner.nextLine()));
+                System.out.println("ID: ");
+                try {
+                    Prodotto prod = magazzino.ricercaProdotto(UUID.fromString(scanner.nextLine()));
+                    if (prod != null) {
+                        listaVisualizza.add(prod);
+                    }
+                } catch (Exception e) {
+                    e.getMessage();
+                }
                 break;
+        }
+        if (listaVisualizza.isEmpty()) {
+            System.out.println("Non esiste prodotto in questa Ricerca!");
+        } else {
+            System.out.println("--------------------- Prodotti della ricerca: ----------------------");
+            for (Prodotto i : listaVisualizza) {
+                System.out.println(i.stampaProdottoMagazzinieri());
+            }
         }
     }
 
     public static void aggiungiDispositivo(Magazzino magazzino, Scanner scanner) throws RicercaNullaException {
-
-        System.out.println("nome produttore:");
-        String produttore = scanner.nextLine();
-        System.out.println("modello:");
-        String modello = scanner.nextLine();
-        System.out.println("descrizione:");
-        String descrizione = scanner.nextLine();
-        System.out.println("prezzo acquisto:");
-        double prezzoAcquisto = scanner.nextDouble();
-        System.out.println("prezzo vendita:");
-        double prezzoVendita = scanner.nextDouble();
-        System.out.println("dimensione display:");
-        double dimensioneDisplay = scanner.nextDouble();
-        System.out.println("dimensione spazio:");
-        int dimensioneSpazio = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("tipo dispositivo:");
-        String tipo = scanner.nextLine().toUpperCase();
-        TipoDispositivo tipoDispositivo;
-        if (tipo.equals("NOTEBOOK")) {
-            tipoDispositivo = TipoDispositivo.NOTEBOOK;
-        } else if (tipo.equals("SMARTPHONE")) {
-            tipoDispositivo = TipoDispositivo.SMARTPHONE;
-        } else if (tipo.equals("TABLET")) {
-            tipoDispositivo = TipoDispositivo.TABLET;
-        } else {
-            throw new RicercaNullaException();
+        try {
+            System.out.println("nome produttore:");
+            String produttore = scanner.nextLine();
+            System.out.println("modello:");
+            String modello = scanner.nextLine();
+            System.out.println("descrizione:");
+            String descrizione = scanner.nextLine();
+            System.out.println("prezzo acquisto:");
+            double prezzoAcquisto = scanner.nextDouble();
+            System.out.println("prezzo vendita:");
+            double prezzoVendita = scanner.nextDouble();
+            System.out.println("dimensione display:");
+            double dimensioneDisplay = scanner.nextDouble();
+            System.out.println("dimensione spazio:");
+            int dimensioneSpazio = scanner.nextInt();
+            scanner.nextLine();
+            System.out.println("tipo dispositivo:");
+            String tipo = scanner.nextLine().toUpperCase();
+            TipoDispositivo tipoDispositivo;
+            try {
+                if (tipo.equals("NOTEBOOK")) {
+                    tipoDispositivo = TipoDispositivo.NOTEBOOK;
+                } else if (tipo.equals("SMARTPHONE")) {
+                    tipoDispositivo = TipoDispositivo.SMARTPHONE;
+                } else if (tipo.equals("TABLET")) {
+                    tipoDispositivo = TipoDispositivo.TABLET;
+                } else {
+                    throw new RicercaNullaException("Tipo invalido!");
+                }
+                System.out.println(magazzino.aggAlMagazzino(new Dispositivo(produttore, modello, descrizione, prezzoAcquisto, prezzoVendita, tipoDispositivo, dimensioneDisplay, dimensioneSpazio)));
+            } catch (RicercaNullaException e) {
+                e.getMessage();
+            }
+        } catch (IllegalArgumentException | InputMismatchException e) {
+            System.out.println("Creazione invalida!");
+            ;
         }
-
-        System.out.println(magazzino.aggAlMagazzino(new Dispositivo(produttore, modello, descrizione, prezzoAcquisto, prezzoVendita, tipoDispositivo, dimensioneDisplay, dimensioneSpazio)));
     }
 }

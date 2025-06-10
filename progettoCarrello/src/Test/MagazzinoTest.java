@@ -47,7 +47,7 @@ public class MagazzinoTest {
 
     @Test
     public void testRicercaPerModelo() throws RicercaNullaException {
-        List<Prodotto> galaxyTab = magazzino.ricercaPerModelo("Galaxy Tab");
+        List<Prodotto> galaxyTab = magazzino.ricercaPerModello("Galaxy Tab");
         assertEquals("Dovrebbe esserci un solo Galaxy Tab", 1, galaxyTab.size());
         assertTrue("La lista dovrebbe contenere dispositivo2", galaxyTab.contains(dispositivo2));
     }

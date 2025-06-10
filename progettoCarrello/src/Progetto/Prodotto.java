@@ -7,20 +7,6 @@ public abstract class Prodotto {
     protected double prezzoAcquisto;
     protected double prezzoVendita;
 
-    public String toStringDetailsClient() {
-        return "Progetto.Prodotto{" +
-                "produttore='" + produttore + '\'' +
-                ", modello='" + modello +
-                '}';
-    }
-
-    public String toStringDetailsMagazziniere() {
-        return "Prodotto{" +
-                "produttore='" + produttore + '\'' +
-                ", modello='" + modello +
-                '}';
-    }
-
     public Prodotto(String produttore, String modello, String descrizione, double prezzoAcquisto, double prezzoVendita) {
         this.produttore = produttore;
         this.modello = modello;

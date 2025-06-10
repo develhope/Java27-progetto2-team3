@@ -35,7 +35,7 @@ public class CarrelloTest {
     @Test
     public void testRimuoviIdDispositivoAlCarrello() throws RicercaNullaException, CarrelloChiusoException {
         carrello.aggiungeIdDispositivoAlCarrello(dispositivo1);
-        Prodotto rimosso = carrello.rimuoviIdDispositivoAlCarrello("D001");
+        Prodotto rimosso = carrello.rimuoviIdDispositivoAlCarrello(dispositivo1.getIdDispositivo());
         assertEquals("Il dispositivo rimosso dovrebbe essere dispositivo1", dispositivo1, rimosso);
         assertEquals("La dimensione della lista dovrebbe essere 0", 0, carrello.getListaProdottiCarrello().size());
     }
@@ -45,7 +45,7 @@ public class CarrelloTest {
         carrello.aggiungeIdDispositivoAlCarrello(dispositivo1);
         carrello.finalizaCompra();
         assertThrows(CarrelloChiusoException.class, () -> {
-            carrello.rimuoviIdDispositivoAlCarrello("D001");
+            carrello.rimuoviIdDispositivoAlCarrello(dispositivo1.getIdDispositivo());
         }, "Dovrebbe lanciare Exception.CarrelloChiusoException se il carrello è chiuso");
     }
 

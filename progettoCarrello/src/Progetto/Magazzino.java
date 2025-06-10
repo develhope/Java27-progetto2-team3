@@ -1,6 +1,7 @@
 package Progetto;
 
 import Exceptions.RicercaNullaException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -22,8 +23,12 @@ public class Magazzino {
 
     //listaDispositivo, e quando richiamato può essere visualizzato dall'utente a seconda della sua tipologia
     public ArrayList<Prodotto> visualizzaDispositivi() throws RicercaNullaException {
-        if (listaProdotti.isEmpty()) {
-            throw new RicercaNullaException();
+        try {
+            if (listaProdotti.isEmpty()) {
+                throw new RicercaNullaException();
+            }
+        } catch (RicercaNullaException e) {
+            e.getMessage();
         }
         return listaProdotti;
     }
@@ -34,6 +39,7 @@ public class Magazzino {
 
     public List<Prodotto> ricercaTipoDispositivo(TipoDispositivo p) throws RicercaNullaException {
         List<Prodotto> arrayTipo = new ArrayList<>();
+        try{
         if (listaProdotti.isEmpty()) {
             throw new RicercaNullaException();
         }
@@ -44,56 +50,69 @@ public class Magazzino {
         }
         if (arrayTipo.isEmpty()) {
             throw new RicercaNullaException("Non esiste prodotto di questo tipo!");
+        }}catch (Exception e){
+            e.getMessage();
         }
         return arrayTipo;
     }
 
     public List<Prodotto> ricercaPerProduttori(String p) throws RicercaNullaException {
-        List<Prodotto> arrayProduttore = new ArrayList<>();
-        if (listaProdotti.isEmpty()) {
-            throw new RicercaNullaException();
-        }
-        for (Prodotto i : listaProdotti) {
-            if (p.equals(((Dispositivo)i).getProduttore())) {
-                arrayProduttore.add(i);
+        List<Prodotto> arrayProduttore = null;
+        try {
+            arrayProduttore = new ArrayList<>();
+            if (listaProdotti.isEmpty()) {
+                throw new RicercaNullaException();
             }
-        }
-        if (arrayProduttore.isEmpty()) {
-            throw new RicercaNullaException("Non esiste prodotto di questo produttori!");
+            for (Prodotto i : listaProdotti) {
+                if (p.equals(((Dispositivo) i).getProduttore())) {
+                    arrayProduttore.add(i);
+                }
+            }
+            if (arrayProduttore.isEmpty()) {
+                throw new RicercaNullaException("Non esiste prodotto di questo produttori!");
+            }
+        } catch (Exception e) {
+            e.getMessage();
         }
         return arrayProduttore;
     }
 
     public List<Prodotto> ricercaPerModello(String m) throws RicercaNullaException {
         List<Prodotto> arrayModelo = new ArrayList<>();
-
-        if (listaProdotti.isEmpty()) {
-            throw new RicercaNullaException();
-        }
-        for (Prodotto i : listaProdotti) {
-            if (m.equals(((Dispositivo)i).getModello())) {
-                arrayModelo.add(i);
+        try {
+            if (listaProdotti.isEmpty()) {
+                throw new RicercaNullaException();
             }
-        }
-        if (arrayModelo.isEmpty()) {
-            throw new RicercaNullaException("Non esiste prodotto di questo modello!");
+            for (Prodotto i : listaProdotti) {
+                if (m.equals(((Dispositivo) i).getModello())) {
+                    arrayModelo.add(i);
+                }
+            }
+            if (arrayModelo.isEmpty()) {
+                throw new RicercaNullaException("Non esiste prodotto di questo modello!");
+            }
+        } catch (Exception e) {
+            e.getMessage();
         }
         return arrayModelo;
     }
 
     public List<Prodotto> ricercaPrezzoVendita(Double v) throws RicercaNullaException {
         List<Prodotto> arrayPrezzoVendita = new ArrayList<>();
-
-        if (listaProdotti.isEmpty()) {
-            throw new RicercaNullaException();
-        }
-        for (Prodotto i : listaProdotti) {
-            if (v.equals(((Dispositivo)i).getPrezzoVendita())) {
-                arrayPrezzoVendita.add(i);
+        try {
+            if (listaProdotti.isEmpty()) {
+                throw new RicercaNullaException();
             }
-        }
-        if (arrayPrezzoVendita.isEmpty()) {
-            throw new RicercaNullaException("Non esiste prodotto con questo prezzo!");
+            for (Prodotto i : listaProdotti) {
+                if (v.equals(((Dispositivo) i).getPrezzoVendita())) {
+                    arrayPrezzoVendita.add(i);
+                }
+            }
+            if (arrayPrezzoVendita.isEmpty()) {
+                throw new RicercaNullaException("Non esiste prodotto con questo prezzo!");
+            }
+        } catch (Exception e) {
+            e.getMessage();
         }
         return arrayPrezzoVendita;
     }
@@ -101,46 +120,60 @@ public class Magazzino {
 
     public List<Prodotto> ricercaRangePrezzi(Double v1, Double v2) throws RicercaNullaException {
         List<Prodotto> arrayRangePrezzo = new ArrayList<>();
-
-        if (listaProdotti.isEmpty()) {
-            throw new RicercaNullaException();
-        }
-        for (Prodotto i : listaProdotti) {
-            if ((v1 >= i.getPrezzoVendita()) && (v2 >= i.getPrezzoVendita())) {
-                arrayRangePrezzo.add(i);
-            } else if ((v2 >= i.getPrezzoVendita()) && (v1 >= i.getPrezzoVendita())) {
-                arrayRangePrezzo.add(i);
+        try {
+            if (listaProdotti.isEmpty()) {
+                throw new RicercaNullaException();
             }
-        }
-        if (listaProdotti.isEmpty()) {
-            throw new RicercaNullaException("Non esiste prodotto in questa fascia di prezzo!");
+            for (Prodotto i : listaProdotti) {
+                if ((v1 >= i.getPrezzoVendita()) && (v2 >= i.getPrezzoVendita())) {
+                    arrayRangePrezzo.add(i);
+                } else if ((v2 >= i.getPrezzoVendita()) && (v1 >= i.getPrezzoVendita())) {
+                    arrayRangePrezzo.add(i);
+                }
+            }
+            if (listaProdotti.isEmpty()) {
+                throw new RicercaNullaException("Non esiste prodotto in questa fascia di prezzo!");
+            }
+        } catch (Exception e) {
+            e.getMessage();
         }
         return arrayRangePrezzo;
     }
 
     public Prodotto ricercaProdotto(UUID id) throws RicercaNullaException {
-        if (listaProdotti.isEmpty()) {
-            throw new RicercaNullaException();
-        }
-        for (Prodotto i : listaProdotti) {
-            if (id.equals(((Dispositivo) i).getIdDispositivo())) {
-                return i;
+        try {
+            if (listaProdotti.isEmpty()) {
+                throw new RicercaNullaException();
             }
-        }
-        throw new RicercaNullaException("Non esiste prodotto con questo ID!");
 
+            for (Prodotto i : listaProdotti) {
+                if (id.equals(((Dispositivo) i).getIdDispositivo())) {
+                    return i;
+                }
+            }
+            throw new RicercaNullaException("Non esiste prodotto con questo ID!");
+        } catch (RicercaNullaException e) {
+            e.getMessage();
+        }
+        return null;
     }
 
     public boolean rimuoveProdotto(UUID idDispositivo) throws RicercaNullaException {
-        if (listaProdotti.isEmpty()) {
-            throw new RicercaNullaException();
-        }
-
-        for (Prodotto i : listaProdotti) {
-            if (idDispositivo.equals(((Dispositivo) i).getIdDispositivo())) {
-                return listaProdotti.remove(i);
+        try {
+            if (listaProdotti.isEmpty()) {
+                throw new RicercaNullaException();
             }
+
+            for (Prodotto i : listaProdotti) {
+                if (idDispositivo.equals(((Dispositivo) i).getIdDispositivo())) {
+                    return listaProdotti.remove(i);
+                }
+            }
+            throw new RicercaNullaException("Non esiste prodotto con questo ID!");
+        } catch (
+                Exception e) {
+            e.getMessage();
         }
-        throw new RicercaNullaException("Non esiste prodotto con questo ID!");
+        return false;
     }
 }

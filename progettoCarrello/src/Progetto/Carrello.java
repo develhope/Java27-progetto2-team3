@@ -3,6 +3,7 @@ import Exceptions.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Carrello {
     private int idCarrello;
@@ -60,7 +61,7 @@ public class Carrello {
         return false;
     }
 
-    public Prodotto rimuoviIdDispositivoAlCarrello(String idDispositivo) throws CarrelloChiusoException {
+    public Prodotto rimuoviIdDispositivoAlCarrello(UUID idDispositivo) throws CarrelloChiusoException {
         if (chiuso) {
             throw new CarrelloChiusoException();
         }
